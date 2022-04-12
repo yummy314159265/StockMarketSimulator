@@ -2,8 +2,15 @@ a.navbar-item {
     font-size:30px;
 }
 
+
 .FAQ {
     list-style:none;
+}
+
+#foot{
+    background-color: gray;
+    height:35px;
+
 }
 
 .margin-hero {
@@ -52,4 +59,7 @@ img.rounded-corners {
 
 #FAQtitle{
     font-size:35px;
+}
+#navbarBasicExample{
+    justify-content:space-around;
 }
