@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ape simulator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    
+    <link rel="stylesheet" href="./assets/img/stylesheet.css" />
+
   </head>
   <body>
     <header>
@@ -16,22 +17,22 @@
       
         <div id="navbarBasicExample" class="navbar-menu" style="justify-content:space-between;">          
 
-            <a class="navbar-item" style="font-size:30px;">
+            <a class="navbar-item" class="navtext">
               Home
             </a>
-            <a class="navbar-item"style="font-size:30px;">
+            <a class="navbar-item"class="navtext">
               Market
             </a>
-            <a class="navbar-item"style="font-size:30px;">
+            <a class="navbar-item"class="navtext">
               Trade
             </a>
-            <a class="navbar-item"style="font-size:30px;">
+            <a class="navbar-item"class="navtext">
               Pricing
             </a>
-            <a class="navbar-item"style="font-size:30px;">
+            <a class="navbar-item"class="navtext">
               Download
             </a>
-            <a class="navbar-item"style="font-size:30px;">
+            <a class="navbar-item"class="navtext">
               Help
             </a>
             <div class = "navbar-item">
@@ -116,8 +117,35 @@
             );
           </script>
         </div>
+        
+        <div class="column is-one-half">
+          <h2>Live charting</h2>
+          <p>some info</p>
+        </div>
+      </div>
+    </section>
 
-  <footer class="footer"style="background-color: gray;">
+
+    <div class="card">
+      <div class="card-content" id="FAQcard">
+        <div class="card-title" id="FAQtitle">FAQs:</div>
+        <div class="content">
+          <ul>
+            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Can you play the stock market game by yourself</li>
+            <li class="A">Other Simulator users do not have any effect on your portfolio. So you are completely capable of trading and managing your portfolio on your own.</li>
+            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Does the stock market game cost money?</li>
+            <li class="A">Not one bit. Sign up for free without entering any of your financial information. You will start with your own virtual cash to trade with.</li>
+            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Can I trade options in the Simulator?</li>
+            <li class="A">Yes! You can trade call and put options but at this time the Simulator does not support writing options.</li>           
+            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Is there a Simulator Mobile App?</li>
+            <li class ="A">No, but the Simulator is completely mobile responsive and will work on your iOS or Android device in your preferred web browser.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+  <footer class="footer" id="foot">
     <div class="content has-text-centered" >
       <p>
         <a href="https://jgthms.com">Manage Email Preferences   </a>  &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
@@ -131,12 +159,6 @@
     </div>
   </footer>
 
-        <div class="column is-one-half">
-          <h2>Live charting</h2>
-          <p>some info</p>
-        </div>
-      </div>
-    </section>
 
   </body>
 </html>
