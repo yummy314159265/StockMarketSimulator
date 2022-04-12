@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Stock Simulator</title>
+    <title>Stock Simulator - Create your account</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   </head>
   <body>
@@ -28,8 +28,8 @@
       </nav>    
   <section class="section">      
     <div class="container">
-        <h1 class="title">Create your account</h1>   
-        <form id="formCreateAccount">
+    <h1 class="title">Create your account</h1>   
+    <form id="formCreateAccount">
          <p class="subtitle">Tell us about yourself</p>   
         <div class="field">
             <label for="firstname" class="label">First name</label>
@@ -54,7 +54,7 @@
         <div class="field">
             <label for="phonenumber" class="label">Phone number</label>
             <div class="control">
-              <input required class="input" type="tel" name="phonenumber" id="phone-number" 
+              <input required class="input" type="tel" name="phone" id="phone" 
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
               <small>Format: 123-456-7890</small>
             </div>
@@ -62,92 +62,49 @@
         <div class="field">
             <label for="phonenumber" class="label">Email address</label>
             <div class="control">
-              <input required class="input" type="tel" name="phonenumber" id="phone-number" 
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-              <small>Format: 123-456-7890</small>
+              <input required class="input" type="email" name="email" id="email">              
             </div>
-        </div>          
-          
-          <div class="field">
-            <label class="label">Username</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </div>
-            <p class="help is-success">This username is available</p>
-          </div>
-          
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-              </span>
-            </div>
-            <p class="help is-danger">This email is invalid</p>
-          </div>
-          
-          <div class="field">
-            <label class="label">Subject</label>
+        </div>     
+        <p class="subtitle">Create a Login</p>   
+    
+        <label for="username" class="label">Choose your username</label> 
+        <div class="field">
             <div class="control">
-              <div class="select">
-                <select>
-                  <option>Select dropdown</option>
-                  <option>With options</option>
-                </select>
+                <input required class="input" type="text" name="username" id="username">              
               </div>
-            </div>
-          </div>
+        </div>     
+        <label for="username" class="label">Create a password</label> 
+        <div class="field">
+            <div class="control">
+                <input required class="input" type="password" name="password" id="password">              
+              </div>
+        </div>        
+        <label for="username" class="label">Re-enter password</label>           
+        <div class="field">
+            <div class="control">
+                <input required class="input" type="password" name="confirmpassword" id="confirm-password">              
+              </div>
+        </div>          
+        <div class="field">
+        <div class="control">
+            <label class="checkbox">
+            <input type="checkbox" required>
+            I agree to the <a href="#">terms and conditions</a>
+            </label>
+        </div>
+        </div>             
           
-          <div class="field">
-            <label class="label">Message</label>
-            <div class="control">
-              <textarea class="textarea" placeholder="Textarea"></textarea>
-            </div>
-          </div>
-          
-          <div class="field">
-            <div class="control">
-              <label class="checkbox">
-                <input type="checkbox">
-                I agree to the <a href="#">terms and conditions</a>
-              </label>
-            </div>
-          </div>
-          
-          <div class="field">
-            <div class="control">
-              <label class="radio">
-                <input type="radio" name="question">
-                Yes
-              </label>
-              <label class="radio">
-                <input type="radio" name="question">
-                No
-              </label>
-            </div>
-          </div>
-          
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-link">Submit</button>
-            </div>
-            <div class="control">
-              <button class="button is-link is-light">Cancel</button>
-            </div>
-          </div>
-        </form>
+        <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-link">Submit</button>
+        </div>
+        <div class="control">
+            <a href="index.html" class="button is-link is-light">Cancel</a>
+        </div>
+        </div>
+    </form>
     </div>
   </section>
-  <script src="./assets/js/createaccount.js"></script>
+  <script src="assets/js/createnewaccount.js"></script>
   </body>
 </html>
