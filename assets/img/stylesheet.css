@@ -5,6 +5,7 @@ font-size:30px;
 
 #foot{
     background-color: gray;
+    height:35px;
 }
 .navtext{
     font-size:30px;
@@ -32,4 +33,7 @@ font-size:30px;
 
 ul{
     list-style:none;
+}
+#navbarBasicExample{
+    justify-content:space-around;
 }
