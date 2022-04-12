@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ape simulator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="./assets/img/stylesheet.css" />
+    <link rel="stylesheet" href="./assets/css/stylesheet.css" />
 
   </head>
   <body>
@@ -58,24 +58,36 @@
           </div>
         </div>
       </nav>
-      <section class="hero is-medium is-link">
 
-        <div class="hero-body">
-          <h1 class="title">A trading platform that is FREE to join and use</h1>
-         <p class="subtitle">Whether you are a new or an experienced trader, a rick free paper trading is a great way to sharpen trading skills.</p>
-         <ul>
-           <li>Experience and trade with an account that looks and acts similarly to the traders use. </li>           
-           <li>Allow investors to practice their stock-picking skills without investing real money.</li>
-           <li>Take your trading skill to the next level through practice in our simulator. </li>
-           <li>Expand your understanding of futures by testing and refining your trading strategies</li>
-         </ul>
+      <section class="hero is-medium is-link margin-hero">
+        <div class="columns hero-body ">
+          <div class="column is-two-thirds">
+            <h1 class="title">A trading platform that is FREE to join and use</h1>
+            <p class="subtitle">Whether you are a new or an experienced trader, a rick free paper trading is a great way to sharpen trading skills.</p>
+            <ul>
+              <li>Experience and trade with an account that looks and acts similarly to the traders use. </li>
+              <li>Allow investors to practice their stock-picking skills without investing real money.</li>
+              <li>Take your trading skill to the next level through practice in our simulator. </li>
+              <li>Expand your understanding of futures by testing and refining your trading strategies</li>
+            </ul>
+          </div>
+
+          <div class="column is-one-third">
+            <img class="rounded-corners header-img" src="./assets/img/broker.jpg" alt="Excited broker">
+          </div>
         </div>
       </section>
     </header>
 
     <section class="section">      
       <div class="columns">
-        <div class="tradingview-widget-container column is-one-half">
+
+        <div class="column is-one-third">
+          <h2>Live charting</h2>
+          <p>some info</p>
+        </div>
+
+        <div class="tradingview-widget-container column is-two-thirds">
           <div id="tradingview_1fcf9"></div>
           <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AAPL/" rel="noopener" target="_blank"><span class="blue-text">Apple</span></a> by TradingView</div>
           <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -97,7 +109,7 @@
                   ]
                 ],
                 "chartOnly": false,
-                "width": 750,
+                "width": '100%',
                 "height": 400,
                 "locale": "en",
                 "colorTheme": "light",
@@ -117,19 +129,40 @@
             );
           </script>
         </div>
-        
-        <div class="column is-one-half">
-          <h2>Live charting</h2>
-          <p>some info</p>
+    
+      </div>
+    </section>
+
+    <section class="section is-medium">
+      <div class="columns">
+        <div class="column is-two-thirds">
+          <img class="rounded-corners" src="./assets/img/chart-cartoon1.png" alt="Cartoon man dancing on chart lines">
+        </div>
+
+        <div class="column is-one-third">
+          <div>some text</div>
         </div>
       </div>
     </section>
+
+    <section class="section is-medium">
+      <div class="columns">
+        <div class="column is-one-third">
+          <div>some text</div>
+        </div>
+
+        <div class="column is-two-thirds">
+          <img class="rounded-corners" src="./assets/img/stock-tickers1.jpg" alt="Wall street stock tickers">
+        </div>
+      </div>
+    </section>
+
 
     <div class="card">
       <div class="card-content" id="FAQcard">
         <div class="card-title" id="FAQtitle">FAQs:</div>
         <div class="content">
-          <ul>
+          <ul class="FAQ">
             <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Can you play the stock market game by yourself</li>
             <li class="A">Other Simulator users do not have any effect on your portfolio. So you are completely capable of trading and managing your portfolio on your own.</li>
             <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Does the stock market game cost money?</li>
