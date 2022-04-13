@@ -9,15 +9,59 @@
 
   </head>
   <body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">          
-            <img src="./assets/img/logo.png">
-        </div>      
-        <div id="navbarBasicExample" class="navbar-menu">          
-          <div class="navbar-end">
+    <header>
+        <!-- navbar do not delete -->
+        <nav  class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  
+          <div class="navbar-brand">      
+              <img src="./assets/img/logo.png">    
+  
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+          </div>
+        
+          <div id="navbarBasicExample" class="navbar-menu">          
+  
+            <a href="index.html" class="navbar-item" class="navtext">
+              Home
+            </a>
+  
+            <a href="market.html" class="navbar-item"class="navtext">
+              Market
+            </a>
+  
+            <a href="portfolio.html"class="navbar-item"class="navtext">
+              Trade
+            </a>
+  
+            <a href="price.html" class="navbar-item"class="navtext">
+              Pricing
+            </a>
+  
+            <a href="#FAQcard" class="navbar-item"class="navtext">
+              Help
+            </a>
+  
+            <div class = "navbar-item">
+              <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input" type="email" placeholder="Search Symbol">
+                  <span class="icon is-small is-left">
+                    <img src="./assets/img/search.png">
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </p>
+              </div>
+            </div>
+  
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary">
+                <a href="create-account.html" class="button is-primary">
                   <strong>Sign up</strong>
                 </a>
                 <a class="button is-light js-modal-trigger" data-target="login-container" id="login-button">
@@ -25,10 +69,17 @@
                 </a>
               </div>
             </div>
+            
           </div>
         </nav>
         <!-- navbar do not delete -->
     </header>
+    
+    <section class="section">      
+      <div class="container">          
+        <h1 class="title">My Portfolios</h1>   
+      </div>
+    </section>
 
     <!-- login modal do not delete -->
     <div class="modal" id="login-container">
@@ -72,15 +123,10 @@
 
             </form>
         </div>
-      </nav>    
-  <section class="section">      
-    <div class="container">          
-    <h1 class="title">My Portfolios</h1>   
     </div>
-  </section>
-    
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="./assets/js/user.js"></script>
-  <script src="./assets/js/modals.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./assets/js/user.js"></script>
+    <script src="./assets/js/modals.js"></script>
   </body>
 </html>
