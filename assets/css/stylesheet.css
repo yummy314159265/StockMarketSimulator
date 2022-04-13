@@ -6,12 +6,15 @@ a.navbar-item {
     font-size:30px;
 }
 
+.text-center { 
+    text-align: center;
+}
 
 .FAQ {
     list-style:none;
 }
 
-.margin-hero {
+.margin-top-el {
     margin-top: 61px;
 }
 
@@ -69,5 +72,10 @@ img.rounded-corners {
 
 #error-message {
     color: red;
+
     font-size:large;
 }
+
+
+
+
