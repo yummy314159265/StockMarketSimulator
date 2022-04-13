@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 a.navbar-item {
     font-size:30px;
 }
@@ -5,12 +9,6 @@ a.navbar-item {
 
 .FAQ {
     list-style:none;
-}
-
-#foot{
-    background-color: gray;
-    height:35px;
-
 }
 
 .margin-hero {

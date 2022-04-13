@@ -1,194 +1,256 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ape simulator</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/stylesheet.css" />
+</head>
 
-  </head>
-  <body>
-    <header>
-      <nav  class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">      
-            <img src="./assets/img/logo.png">       
-        </div>
-      
-        <div id="navbarBasicExample" class="navbar-menu">          
+<body>
+  <header>
+    <nav  class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
 
-            <a href="index.html" class="navbar-item" class="navtext">
-              Home
-            </a>
-            <a href="market.html" class="navbar-item"class="navtext">
-              Market
-            </a>
-            <a href="portfolio.html"class="navbar-item"class="navtext">
-              Trade
-            </a>
-            <a href="price.html" class="navbar-item"class="navtext">
-              Pricing
-            </a>
-            <a href="#FAQcard" class="navbar-item"class="navtext">
-              Help
-            </a>
-            <div class = "navbar-item">
-              <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                  <input class="input" type="email" placeholder="Search Symbol">
-                  <span class="icon is-small is-left">
-                    <img src="./assets/img/search.png">
-                  </span>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div class="navbar-item">
-              <div class="buttons">
-                <a href="create-account.html" class="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light">
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <div class="navbar-brand">      
+          <img src="./assets/img/logo.png">    
 
-      <section class="hero is-medium is-link margin-hero">
-        <div class="columns hero-body ">
-          <div class="column is-two-thirds">
-            <h1 class="title">A trading platform that is FREE to join and use</h1>
-            <p class="subtitle">Whether you are a new or an experienced trader, a rick free paper trading is a great way to sharpen trading skills.</p>
-            <ul>
-              <li>Experience and trade with an account that looks and acts similarly to the traders use. </li>
-              <li>Allow investors to practice their stock-picking skills without investing real money.</li>
-              <li>Take your trading skill to the next level through practice in our simulator. </li>
-              <li>Expand your understanding of futures by testing and refining your trading strategies</li>
-            </ul>
-          </div>
-
-          <div class="column is-one-third">
-            <img class="rounded-corners header-img" src="./assets/img/broker.jpg" alt="Excited broker">
-          </div>
-        </div>
-      </section>
-    </header>
-
-    <section class="section">      
-      <div class="columns">
-
-        <div class="column is-one-third">
-          <h2>Live charting</h2>
-          <p>some info</p>
-        </div>
-
-        <div class="tradingview-widget-container column is-two-thirds">
-          <div id="tradingview_1fcf9"></div>
-          <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AAPL/" rel="noopener" target="_blank"><span class="blue-text">Apple</span></a> by TradingView</div>
-          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-          <script type="text/javascript">
-            new TradingView.MediumWidget(
-              {
-                "symbols": [
-                  [
-                    "Apple",
-                    "AAPL"
-                  ],
-                  [
-                    "Google",
-                    "GOOGL"
-                  ],
-                  [
-                    "Microsoft",
-                    "MSFT"
-                  ]
-                ],
-                "chartOnly": false,
-                "width": '100%',
-                "height": 400,
-                "locale": "en",
-                "colorTheme": "light",
-                "gridLineColor": "rgba(240, 243, 250, 0)",
-                "fontColor": "#787B86",
-                "isTransparent": false,
-                "autosize": false,
-                "showVolume": false,
-                "scalePosition": "no",
-                "scaleMode": "Normal",
-                "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
-                "noTimeScale": false,
-                "valuesTracking": "1",
-                "chartType": "line",
-                "container_id": "tradingview_1fcf9"
-              }
-            );
-          </script>
-        </div>
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+      </div>
     
-      </div>
-    </section>
+      <div id="navbarBasicExample" class="navbar-menu">          
 
-    <section class="section is-medium">
-      <div class="columns">
+        <a href="index.html" class="navbar-item" class="navtext">
+          Home
+        </a>
+
+        <a href="market.html" class="navbar-item"class="navtext">
+          Market
+        </a>
+
+        <a href="portfolio.html"class="navbar-item"class="navtext">
+          Trade
+        </a>
+
+        <a href="price.html" class="navbar-item"class="navtext">
+          Pricing
+        </a>
+
+        <a href="#FAQcard" class="navbar-item"class="navtext">
+          Help
+        </a>
+
+        <div class = "navbar-item">
+          <div class="field">
+            <p class="control has-icons-left has-icons-right">
+              <input class="input" type="email" placeholder="Search Symbol">
+              <span class="icon is-small is-left">
+                <img src="./assets/img/search.png">
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="navbar-item">
+          <div class="buttons">
+            <a href="create-account.html" class="button is-primary">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" id="login-button">
+              Log in
+            </a>
+          </div>
+        </div>
+        
+      </div>
+    </nav>
+
+    <section class="hero is-link margin-hero">
+      <div class="columns hero-body ">
         <div class="column is-two-thirds">
-          <img class="rounded-corners" src="./assets/img/chart-cartoon1.png" alt="Cartoon man dancing on chart lines">
-        </div>
-
-        <div class="column is-one-third">
-          <div>some text</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section is-medium">
-      <div class="columns">
-        <div class="column is-one-third">
-          <div>some text</div>
-        </div>
-
-        <div class="column is-two-thirds">
-          <img class="rounded-corners" src="./assets/img/stock-tickers1.jpg" alt="Wall street stock tickers">
-        </div>
-      </div>
-    </section>
-
-
-    <div class="card">
-      <div class="card-content" id="FAQcard">
-        <div class="card-title" id="FAQtitle">FAQs:</div>
-        <div class="content">
-          <ul id="FAQlist">
-            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Can you play the stock market game by yourself</li>
-            <li class="A">Other Simulator users do not have any effect on your portfolio. So you are completely capable of trading and managing your portfolio on your own.</li>
-            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Does the stock market game cost money?</li>
-            <li class="A">Not one bit. Sign up for free without entering any of your financial information. You will start with your own virtual cash to trade with.</li>
-            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Can I trade options in the Simulator?</li>
-            <li class="A">Yes! You can trade call and put options but at this time the Simulator does not support writing options.</li>           
-            <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Is there a Simulator Mobile App?</li>
-            <li class ="A">No, but the Simulator is completely mobile responsive and will work on your iOS or Android device in your preferred web browser.</li>
+          <h1 class="title">A trading platform that is FREE to join and use</h1>
+          <p class="subtitle">Whether you are a new or an experienced trader, a rick free paper trading is a great way to sharpen trading skills.</p>
+          <ul>
+            <li>Experience and trade with an account that looks and acts similarly to the traders use. </li>
+            <li>Allow investors to practice their stock-picking skills without investing real money.</li>
+            <li>Take your trading skill to the next level through practice in our simulator. </li>
+            <li>Expand your understanding of futures by testing and refining your trading strategies</li>
           </ul>
         </div>
+
+        <div class="column is-one-third">
+          <img class="rounded-corners header-img" src="./assets/img/broker.jpg" alt="Excited broker">
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <section class="section">      
+    <div class="columns">
+
+      <div class="column is-one-third">
+        <h2>Live charting</h2>
+        <p>some info</p>
+      </div>
+
+      <div class="tradingview-widget-container column is-two-thirds rounded-corners">
+        <div id="tradingview_1fcf9"></div>
+        <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AAPL/" rel="noopener" target="_blank"><span class="blue-text">Apple</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+          new TradingView.MediumWidget(
+            {
+              "symbols": [
+                [
+                  "Apple",
+                  "AAPL"
+                ],
+                [
+                  "Google",
+                  "GOOGL"
+                ],
+                [
+                  "Microsoft",
+                  "MSFT"
+                ]
+              ],
+              "chartOnly": false,
+              "width": '100%',
+              "height": 400,
+              "locale": "en",
+              "colorTheme": "light",
+              "gridLineColor": "rgba(240, 243, 250, 0)",
+              "fontColor": "#787B86",
+              "isTransparent": false,
+              "autosize": false,
+              "showVolume": false,
+              "scalePosition": "no",
+              "scaleMode": "Normal",
+              "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+              "noTimeScale": false,
+              "valuesTracking": "1",
+              "chartType": "line",
+              "container_id": "tradingview_1fcf9"
+            }
+          );
+        </script>
+      </div>
+  
+    </div>
+  </section>
+
+  <section class="section is-medium">
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <img class="rounded-corners" src="./assets/img/chart-cartoon1.png" alt="Cartoon man dancing on chart lines">
+      </div>
+
+      <div class="column is-one-third">
+        <div>some text</div>
       </div>
     </div>
+  </section>
 
-    <footer class="footer" id="foot">
-      <div class="content has-text-centered" >
-        <p>
-          <a href="https://https://github.com/yummy314159265/StockMarketSimulator">Manage Email Preferences   </a>  &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="http://opensource.org/licenses/mit-license.php">Terms of Use </a> &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Accessibility</a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Privacy Policy </a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Do Not Sell My Personal Information </a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Contact Us</a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-        </p>
-        <img src = "./assets/img/logo.png">
+  <section class="section is-medium">
+    <div class="columns">
+      <div class="column is-one-third">
+        <div>some text</div>
       </div>
-    </footer>
 
-  </body>
+      <div class="column is-two-thirds">
+        <img class="rounded-corners" src="./assets/img/stock-tickers1.jpg" alt="Wall street stock tickers">
+      </div>
+    </div>
+  </section>
+
+
+  <div class="card">
+    <div class="card-content" id="FAQcard">
+      <div class="card-title" id="FAQtitle">FAQs:</div>
+      <div class="content">
+        <ul id="FAQlist">
+          <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Can you play the stock market game by yourself</li>
+          <li class="A">Other Simulator users do not have any effect on your portfolio. So you are completely capable of trading and managing your portfolio on your own.</li>
+          <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Does the stock market game cost money?</li>
+          <li class="A">Not one bit. Sign up for free without entering any of your financial information. You will start with your own virtual cash to trade with.</li>
+          <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Can I trade options in the Simulator?</li>
+          <li class="A">Yes! You can trade call and put options but at this time the Simulator does not support writing options.</li>           
+          <li class="Q"><img src ="./assets/img/right-arrow-icon.png" class ="arrowcon">Is there a Simulator Mobile App?</li>
+          <li class ="A">No, but the Simulator is completely mobile responsive and will work on your iOS or Android device in your preferred web browser.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer margin-footer" id="foot">
+    <div class="content has-text-centered" >
+      <p>
+        <a href="https://https://github.com/yummy314159265/StockMarketSimulator">Manage Email Preferences   </a>  &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://opensource.org/licenses/mit-license.php">Terms of Use </a> &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Accessibility</a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Privacy Policy </a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Do Not Sell My Personal Information </a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Contact Us</a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
+      </p>
+      <img src = "./assets/img/logo.png">
+    </div>
+  </footer>
+
+  <div class="modal" id="login-container">
+    <div class="modal-background"></div>
+    
+      <div class="modal-content">
+        <form action="" class="box">
+
+          <div class="field">
+            <label for="" class="label">Email</label>
+            <div class="control has-icons-left">
+              <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="" class="label">Password</label>
+            <div class="control has-icons-left">
+              <input type="password" placeholder="*******" class="input" required>
+              <span class="icon is-small is-left">
+                <i class="fa fa-lock"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="" class="checkbox">
+              <input type="checkbox">
+              Remember me
+            </label>
+          </div>
+
+          <div class="field">
+            <button class="button is-success">
+              Login
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="./assets/js/login.js"></script>
+</body>
 </html>
