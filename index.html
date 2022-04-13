@@ -13,12 +13,14 @@
   <header>
 
     <!-- navbar do not delete -->
-    <nav  class="navbar is-fixed-top p-2" role="navigation" aria-label="main navigation">
 
+    <nav  class="navbar p-2" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">      
-          <img src="./assets/img/logo.png">    
+          <a href="index.html">
+          <img src="./assets/img/logo.png" alt="Stock Simulator">
+          </a>    
 
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -26,7 +28,7 @@
       </div>
     
       <div id="navbarBasicExample" class="navbar-menu">          
-
+        <div class="navbar-start">
         <a href="index.html" class="navbar-item" class="navtext">
           Home
         </a>
@@ -46,7 +48,7 @@
         <a href="#FAQcard" class="navbar-item"class="navtext">
           Help
         </a>
-
+      </div>
         <div class = "navbar-item">
           <div class="field">
             <form id="search-form">
@@ -65,21 +67,26 @@
 
         <div class="navbar-item">
           <div class="buttons">
-            <a href="create-account.html" class="button is-primary">
+            <!-- <script>if(JSON.parse(sessionStorage.getItem(loggedin))===true)
+              console.log("user logged in")
+            </script> -->
+            <a href="create-account.html" id = "signupbutton"  class="button is-primary">
               <strong>Sign up</strong>
             </a>
             <a class="button is-light js-modal-trigger" data-target="login-container" id="login-button">
               Log in
             </a>
+            <a class="button is-light"id="logoutbutton"  >
+              Log Out
+            </a>
           </div>
         </div>
-        
       </div>
     </nav>
     <!-- navbar do not delete -->
-  
+    
+    <section class="hero is-link">
 
-    <section class="hero is-link margin-top-el">
       <div class="columns hero-body ">
         <div class="column is-two-thirds">
           <h1 class="title">A trading platform that is FREE to join and use</h1>
@@ -294,8 +301,9 @@
         <form action="" class="box">
 
           <div class="field">
-            <label for="" class="label">Email</label>
+            <label for="" class="label">Username</label>
             <div class="control has-icons-left">
+              <input id="loginname" type="username" placeholder="Username" class="input" required>
               <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" id="login-email" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-envelope"></i>
@@ -306,12 +314,17 @@
           <div class="field">
             <label for="" class="label">Password</label>
             <div class="control has-icons-left">
+              <input id="loginpass" type="password" placeholder="*******" class="input" required>
               <input type="password" placeholder="*******" class="input" id="login-password" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-lock"></i>
               </span>
             </div>
           </div>
+
+          <div class="field">
+            <button id="login" class="button is-success">
+
 
           <div class="field">
             <label for="" class="checkbox">
@@ -335,7 +348,9 @@
   <!-- login modal do not delete -->
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="./assets/js/user.js"></script>
   <script src="./assets/js/modals.js"></script>
   <script src="./assets/js/search.js"></script>
+
 </body>
 </html>
