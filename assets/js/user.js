@@ -1,20 +1,54 @@
 
+function containsSpecialChars(str) {
+    const specialChars = `\`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`;
+  
+    const result = specialChars.split('').some(specialChar => {
+      if (str.includes(specialChar)) {
+        return true;
+      }
+  
+      return false;
+    });
+  
+    return result;
+  }
+  function hasNumber(myString) {
+    return /\d/.test(myString);
+  }
+  
+
+
 var username=$('#username');
 var password=$('#password');
 var passwordcheck=$('#confirm-password');
 var terms=$('#terms');
-var terms=$('input[id="terms"]');
+var terms=$('#checkbox-agree-terms');
 var submitbutton=$('#submit');
 var login=$('#login');
 var loginuser=$('#loginname');
 var loginpass=$('#loginpass');
- users = JSON.parse(localStorage.getItem("users") || "[]");
+var errorMessgeEl = $('#error-message');
+var succesMessgeEl = $('#success-message');
+var signupbutton=$('#signupbutton')
+var loginbutton=$('#login-button')
+var logoutbutton=$('#logoutbutton')
 
+  var loginModal = $('#login-container')
+
+
+
+const defaultlogin=false;
+ users = JSON.parse(localStorage.getItem("users") || "[]");
+ loggedin = JSON.parse(sessionStorage.getItem("loggedin") || defaultlogin)
+
+ if(loggedin===false)
+ logoutbutton.hide();
+ 
 //no duplicate usernames
  function checkRepeat(name){
     for(let i=0;i<users.length;i++){
         if(name===users[i].username){
-            alert("Username already exists");
+            alert("Username already taken")
             return true;
         }
     }
@@ -24,7 +58,24 @@ var loginpass=$('#loginpass');
  //check if passwords match
  function checkPassword(pass1,pass2){
      if(pass1!==pass2){
-        alert("Passwords do not match");
+        // alert("Passwords do not match");
+        errorMessgeEl.text("passwords do not match")
+        errorMessgeEl.show();
+        return true;
+     }
+     if(pass1.length<6){
+     errorMessgeEl.text("password is too short! Must be 6 characters or longer")
+     errorMessgeEl.show();
+     return true;
+     }
+     if(!hasNumber(pass1)){
+        errorMessgeEl.text("password must include number and special character")
+        errorMessgeEl.show();
+        return true;
+     }
+     if(!containsSpecialChars(pass1)){
+        errorMessgeEl.text("password must include number and special character")
+        errorMessgeEl.show();
         return true;
      }
     else{
@@ -40,8 +91,6 @@ function storeUser(){
 }
 function checkbox(){
     if(terms[0].checked===false){
-        console.log('chek the bocks')
-        alert("You must agree to term of service!");
         return true;
     }
     else{
@@ -63,26 +112,55 @@ function verifyUser(name,pass){
 }
 
 submitbutton.on('click',function(){
+    event.preventDefault();
   
 console.log(terms[0].checked)
     if(checkRepeat(username.val()))
         return;
     if(checkPassword(password.val(),passwordcheck.val()))
         return;   
-        console.log('passed pass')
+    console.log('passed pass')
     if(checkbox())
         return;
     console.log('passed check')
     storeUser();
+    console.log('were here')
+     alert("you have sucessfully created an account, you can now log in")
+    succesMessgeEl.text("you did it you registere")
+    succesMessgeEl.show();
+    window.location.href="index.html";
     console.log(users);
 });
 
 login.on('click',function(){
-    if(verifyUser(loginuser.val(),loginpass.val())){
-        // i think we need to store a state and it would be 
-        // {
-        //     loggedin: true/false;
-        // }
-    }
+    event.preventDefault();
+    console.log(loggedin)
+    if(loggedin===false){
+     if(verifyUser(loginuser.val(),loginpass.val())){
+         loggedin=true;
+         sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
+         logoutbutton.show();
+         loginbutton.hide();
+         signupbutton.hide();
+      }
+      else{
+          alert("login failed")
+      }
+        loginModal.removeClass('is-active');
+  
+}
     return;
+})
+
+logoutbutton.on('click',function(){
+    event.preventDefault();
+    console.log(loginbutton)
+    console.log(logoutbutton)
+    console.log(signupbutton)
+    loggedin=false;
+    sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
+    loginbutton.show()
+    logoutbutton.hide()
+    signupbutton.show()
+    console.log("logout")
 })
