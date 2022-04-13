@@ -1,15 +1,3 @@
-// Users=[
-//     {
-//         id:0,
-//         name: "username",
-//         password: "password123",
-//     },
-//     {
-//         id:1,
-//         name: "koki",
-//         password:"password123",
-//     }
-// ]
 
 var username=$('#username');
 var password=$('#password');
