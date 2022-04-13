@@ -49,15 +49,17 @@
 
         <div class = "navbar-item">
           <div class="field">
-            <p class="control has-icons-left has-icons-right">
-              <input class="input" type="email" placeholder="Search Symbol">
-              <span class="icon is-small is-left">
-                <img src="./assets/img/search.png">
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </p>
+            <form id="search-form">
+              <p class="control has-icons-left has-icons-right">
+                <input class="input" type="search" placeholder="Search Symbol" id="search-input">
+                <span class="icon is-small is-left">
+                  <img src="./assets/img/search.png">
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+                </span>
+              </p>
+            </form>
           </div>
         </div>
 
@@ -334,5 +336,6 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="./assets/js/modals.js"></script>
+  <script src="./assets/js/search.js"></script>
 </body>
 </html>
