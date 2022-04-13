@@ -179,14 +179,97 @@ var savePortfolio = function (event) {
     h1El.html("<a href='portfolio.html'>My Portfolios</a> / " + portfolioName);
     buttonCreatePortfolioEl.hide();
     buttonAddSymbolEl.show();
-
+    showPortFolioListEl.html('');
   }
   
 
   //event delegation user click portfolio
   showPortFolioListEl.on('click', '.portfoliolink', function (event) {
     displaySinglePortfolio($(this).text());      
-    
+        // Create Table
+      var tableEl = $('<table>');
+      tableEl.attr('class', 'table table is-fullwidth');
+
+      // Create Table Head
+      var tableHeadEl = $('<thead>');
+      tableEl.append(tableHeadEl);
+
+      // Create Table Row
+      var tableRowEl = $('<tr>');
+      tableHeadEl.append(tableRowEl);
+
+      // Create Table Column
+      var tableColumnEl = $('<th>');
+      tableColumnEl.text('Symbol');
+      tableRowEl.append(tableColumnEl);   
+      var tableColumnEl = $('<th>');
+      tableColumnEl.text('Last Price');
+      tableRowEl.append(tableColumnEl);   
+      var tableColumnEl = $('<th>');
+      tableColumnEl.text("Today's Gain/Loss");
+      tableRowEl.append(tableColumnEl);   
+      var tableColumnEl = $('<th>');
+      tableColumnEl.text('Total Gain/Loss');
+      tableRowEl.append(tableColumnEl);   
+      var tableColumnEl = $('<th>');
+      tableColumnEl.text('Current Value');
+      tableRowEl.append(tableColumnEl);   
+      var tableColumnEl = $('<th>');
+      tableColumnEl.text('Quantity');
+      tableRowEl.append(tableColumnEl);   
+      var tableColumnEl = $('<th>');
+      tableColumnEl.text('Cost Basis');
+      tableRowEl.append(tableColumnEl);   
+      tableEl.append(tableEl);
+      // Work pending to pull data from localStorage + API
+
+
+      // table footer summary
+       // Create Table Row
+       var tableFooterEl = $('<tfoot>');
+
+       var tableRowEl = $('<tr>');
+       tableFooterEl.append(tableRowEl);
+ 
+       // Create Table Column
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text('Account Total');
+       tableRowEl.append(tableColumnEl);
+
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text(''); // leave blank
+       tableRowEl.append(tableColumnEl);   
+
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text(""); // Show Today's Gain/Loss here
+       tableRowEl.append(tableColumnEl);   
+
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text(''); // Show Total Gain/Loss here
+       tableRowEl.append(tableColumnEl);   
+
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text(''); // Show current value here
+       tableRowEl.append(tableColumnEl);   
+
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text(''); // leave blank
+       tableRowEl.append(tableColumnEl);   
+
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text(''); // leave blank
+       tableRowEl.append(tableColumnEl);   
+
+       var tableColumnEl = $('<th>');
+       tableColumnEl.text(''); // leave blank
+       tableRowEl.append(tableColumnEl);   
+       
+       tableFooterEl.append(tableRowEl);
+       tableEl.append(tableFooterEl);
+
+       // Append complte table to Show
+       showPortFolioListEl.append(tableEl);
+
   });
 
   function init()
