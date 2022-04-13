@@ -5,8 +5,126 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Market</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/stylesheet.css" />
 </head>
+
 <body>
     <H1> lots of charts and stuff</H1>
+
+    <header>
+        <!-- navbar do not delete -->
+        <nav  class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  
+          <div class="navbar-brand">      
+              <img src="./assets/img/logo.png">    
+  
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+          </div>
+        
+          <div id="navbarBasicExample" class="navbar-menu">          
+  
+            <a href="index.html" class="navbar-item" class="navtext">
+              Home
+            </a>
+  
+            <a href="market.html" class="navbar-item"class="navtext">
+              Market
+            </a>
+  
+            <a href="portfolio.html"class="navbar-item"class="navtext">
+              Trade
+            </a>
+  
+            <a href="price.html" class="navbar-item"class="navtext">
+              Pricing
+            </a>
+  
+            <a href="#FAQcard" class="navbar-item"class="navtext">
+              Help
+            </a>
+  
+            <div class = "navbar-item">
+              <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                  <input class="input" type="email" placeholder="Search Symbol">
+                  <span class="icon is-small is-left">
+                    <img src="./assets/img/search.png">
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </p>
+              </div>
+            </div>
+  
+            <div class="navbar-item">
+              <div class="buttons">
+                <a href="create-account.html" class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light" id="login-button">
+                  Log in
+                </a>
+              </div>
+            </div>
+            
+          </div>
+        </nav>
+    </header>
+
+    <!-- login modal do not delete -->
+    <div class="modal" id="login-container">
+        <div class="modal-background"></div>
+        
+        <div class="modal-content">
+            <form action="" class="box">
+
+            <div class="field">
+                <label for="" class="label">Email</label>
+                <div class="control has-icons-left">
+                <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
+                <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i>
+                </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="" class="label">Password</label>
+                <div class="control has-icons-left">
+                <input type="password" placeholder="*******" class="input" required>
+                <span class="icon is-small is-left">
+                    <i class="fa fa-lock"></i>
+                </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="" class="checkbox">
+                <input type="checkbox">
+                Remember me
+                </label>
+            </div>
+
+            <div class="field">
+                <button class="button is-success">
+                Login
+                </button>
+            </div>
+
+            </form>
+
+        </div>
+
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./assets/js/login.js"></script>
 </body>
 </html>
