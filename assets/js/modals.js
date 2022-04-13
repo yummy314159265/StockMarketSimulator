@@ -42,6 +42,7 @@ $(document).on('keydown', (event) => {
     if (e.keyCode === 27) {
         closeAllModals();
     }
+
 });
 
 // Burger Menu JS for Mobile Screen
@@ -68,5 +69,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     }
-  
-  });
+});
