@@ -46,7 +46,9 @@ img.rounded-corners {
     list-style:none;
     transform:translate(30px,0px);
 }
-
+.blacktheme {
+    background-color: #000;
+}
 #FAQlist{
     list-style:none;
 }
@@ -63,4 +65,8 @@ img.rounded-corners {
 }
 #navbarBasicExample{
     justify-content:space-around;
+}
+
+#error-message {
+    color: red;
 }

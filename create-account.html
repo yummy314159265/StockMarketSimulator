@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stock Simulator - Create your account</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/stylesheet.css" />
+
   </head>
   <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -27,67 +29,26 @@
         </div>
       </nav>    
   <section class="section">      
-    <div class="container">
-
-        <h1 class="title">Create your account</h1>   
-        <form id="formCreateAccount"> 
-        
-          <div class="field">
-            <label class="label">Username</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </div>
-            <p class="help is-success">This username is available</p>
-          </div>
-          
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-              </span>
-            </div>
-            <p class="help is-danger">This email is invalid</p>
-          </div>
-          
-
-
-          
-          <div class="field">
-            <div class="control">
-              <label class="checkbox">
-                <input type="checkbox">
-                I agree to the <a href="#">terms and conditions</a>
-              </label>
-            </div>
-          </div>
-          
+    <div class="container">          
 
     <h1 class="title">Create your account</h1>   
-    <form id="formCreateAccount">
+    <div id="error-message"></div>
+    <div id="success-message"></div>
+    <form id="create-account-form">
+      
          <p class="subtitle">Tell us about yourself</p>   
         <div class="field">
             <label for="firstname" class="label">First name</label>
             <div class="control">
               <input required class="input" type="text" name="firstname" id="first-name" 
-               pattern="[a-zA-Z ]+" title="Please enter a valid name!">
+               pattern="[a-zA-Z ]+" title="Please enter a valid name!" maxlength="30">
             </div>
         </div>
         <div class="field">
             <label for="lastname" class="label">Last name</label>
             <div class="control">
               <input required class="input" type="text" name="lastname" id="last-name" 
-               pattern="[a-zA-Z ]+" title="Please enter a valid name!">
+               pattern="[a-zA-Z ]+" title="Please enter a valid name!"  maxlength="30">
             </div>
         </div>
         <div class="field">
@@ -133,7 +94,7 @@
         <div class="field">
         <div class="control">
             <label class="checkbox">
-            <input type="checkbox" required>
+            <input type="checkbox" required id="checkbox-agree-terms">
             I agree to the <a href="#">terms and conditions</a>
             </label>
         </div>
@@ -142,7 +103,7 @@
           
         <div class="field is-grouped">
         <div class="control">
-            <button class="button is-link">Submit</button>
+            <button type="submit" class="button is-link">Submit</button>
         </div>
         <div class="control">
             <a href="index.html" class="button is-link is-light">Cancel</a>
@@ -152,7 +113,7 @@
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
   <script src="assets/js/createnewaccount.js"></script>
 
