@@ -71,9 +71,12 @@ img.rounded-corners {
     list-style:none;
 }
 
-#foot{
-    background-color: gray;
+#footer-container{
     margin-top: auto;
+}
+
+#foot {
+    background-color: gray;
 }
 
 #FAQcard{
