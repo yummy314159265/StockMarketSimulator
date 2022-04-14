@@ -1,5 +1,8 @@
 body {
     margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
@@ -67,8 +70,10 @@ img.rounded-corners {
 #FAQlist{
     list-style:none;
 }
-    #foot{
+
+#foot{
     background-color: gray;
+    margin-top: auto;
 }
 
 #FAQcard{
@@ -86,3 +91,4 @@ img.rounded-corners {
     color: red;
     font-size:large;
 }
+

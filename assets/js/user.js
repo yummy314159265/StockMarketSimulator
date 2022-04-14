@@ -38,8 +38,8 @@ var logoutbutton=$('#logoutbutton')
 
 
 const defaultlogin=false;
- users = JSON.parse(localStorage.getItem("users") || "[]");
- loggedin = JSON.parse(sessionStorage.getItem("loggedin") || defaultlogin)
+var users = JSON.parse(localStorage.getItem("users") || "[]");
+var loggedin = JSON.parse(sessionStorage.getItem("loggedin") || defaultlogin)
 
  if(loggedin===false)
  logoutbutton.hide();
@@ -111,56 +111,70 @@ function verifyUser(name,pass){
 
 }
 
-submitbutton.on('click',function(){
-    event.preventDefault();
-  
-console.log(terms[0].checked)
-    if(checkRepeat(username.val()))
-        return;
-    if(checkPassword(password.val(),passwordcheck.val()))
-        return;   
-    console.log('passed pass')
-    if(checkbox())
-        return;
-    console.log('passed check')
-    storeUser();
-    console.log('were here')
-     alert("you have sucessfully created an account, you can now log in")
-    succesMessgeEl.text("you did it you registere")
-    succesMessgeEl.show();
-    window.location.href="index.html";
-    console.log(users);
-});
-
-login.on('click',function(){
-    event.preventDefault();
-    console.log(loggedin)
-    if(loggedin===false){
-     if(verifyUser(loginuser.val(),loginpass.val())){
-         loggedin=true;
-         sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
-         logoutbutton.show();
-         loginbutton.hide();
-         signupbutton.hide();
-      }
-      else{
-          alert("login failed")
-      }
-        loginModal.removeClass('is-active');
-  
+function submitButtonHandler() {
+    submitbutton.on('click',function(){
+        event.preventDefault();
+    
+    console.log(terms[0].checked)
+        if(checkRepeat(username.val()))
+            return;
+        if(checkPassword(password.val(),passwordcheck.val()))
+            return;   
+        console.log('passed pass')
+        if(checkbox())
+            return;
+        console.log('passed check')
+        storeUser();
+        console.log('were here')
+        alert("you have sucessfully created an account, you can now log in")
+        succesMessgeEl.text("you did it you registere")
+        succesMessgeEl.show();
+        window.location.href="index.html";
+        console.log(users);
+    });
 }
-    return;
-})
 
-logoutbutton.on('click',function(){
-    event.preventDefault();
-    console.log(loginbutton)
-    console.log(logoutbutton)
-    console.log(signupbutton)
-    loggedin=false;
-    sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
-    loginbutton.show()
-    logoutbutton.hide()
-    signupbutton.show()
-    console.log("logout")
-})
+function loginButtonHandler() {
+    login.on('click',function(){
+        event.preventDefault();
+        console.log(loggedin)
+        if(loggedin===false){
+        if(verifyUser(loginuser.val(),loginpass.val())){
+            loggedin=true;
+            sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
+            logoutbutton.show();
+            loginbutton.hide();
+            signupbutton.hide();
+        }
+        else{
+            alert("login failed")
+        }
+            loginModal.removeClass('is-active');
+    
+    }
+        return;
+    })
+}
+
+function logoutButtonHandler() {
+    logoutbutton.on('click',function(){
+        event.preventDefault();
+        console.log(loginbutton)
+        console.log(logoutbutton)
+        console.log(signupbutton)
+        loggedin=false;
+        sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
+        loginbutton.show()
+        logoutbutton.hide()
+        signupbutton.show()
+        console.log("logout")
+    })
+}
+
+function init_user() {
+    submitButtonHandler();
+    loginButtonHandler();
+    logoutButtonHandler();
+}
+
+export { init_user }
