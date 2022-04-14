@@ -182,6 +182,7 @@ var savePortfolio = function (event) {
     buttonAddSymbolEl.show();
     showPortFolioListEl.html('');
   }
+
   
 
   //event delegation user click portfolio

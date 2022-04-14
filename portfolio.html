@@ -86,9 +86,9 @@
              </div>
              <div class="field">
               <div class="control">
-                <div class="select">
+                <div class="select" >
                   <select name="tradeaction" id="trade-action" required>
-                    <option value="" disabled selected>Select your option</option>
+                    <option value="" disabled >Select your option</option>
                     <option value="Buy">Buy</option>
                     <option value="Sell">Sell</option>                  
                   </select>
@@ -101,7 +101,7 @@
                 placeholder="Quantity">
               </div>
              </div>
-             <button class="button" type="submit">Submit Order</button>
+             <button class="button" id="submitbutton" type="submit">Submit Order</button>
              Note for team: form not working as price and calculation should come from API
             </form>
         </section>       
@@ -117,8 +117,10 @@
   <div id="modal-container"></div>
   <!-- login modal do not delete -->
   
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="./assets/js/potato_module.js"></script>
   <script src="./assets/js/portfolio.js"></script>
+  <script src="./assets/js/test.js"></script>
 </body>
 </html>
