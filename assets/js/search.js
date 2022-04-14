@@ -39,6 +39,7 @@ const getApiSearchData = (search) => {
             if (response.ok) {
                 response.json()
                     .then(function (data) {
+                        console.log(data);
                         displaySearchResults(data);
                     });
             } else {
