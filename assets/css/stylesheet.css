@@ -25,14 +25,6 @@ a.navbar-item {
     text-align: center;
 }
 
-.FAQ {
-    list-style:none;
-}
-
-.margin-top-el {
-    margin-top: 61px;
-}
-
 .rounded-corners {
     border-radius: 20px;
     overflow: hidden;
@@ -67,6 +59,7 @@ img.rounded-corners {
 .blacktheme {
     background-color: #000;
 }
+
 #FAQlist{
     list-style:none;
 }
