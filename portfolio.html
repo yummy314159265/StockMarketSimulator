@@ -10,68 +10,12 @@
 
   </head>
   <body>
-    <nav  class="navbar p-2" role="navigation" aria-label="main navigation">
+  <header>
+    <!-- navbar do not delete -->
+    <div id="navbar-container"></div>
+    <!-- navbar do not delete -->
+  </header>
 
-      <div class="navbar-brand">      
-          <a href="index.html">
-          <img src="./assets/img/logo.png" alt="Stock Simulator">
-          </a>    
-
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-      </div>
-    
-      <div id="navbarBasicExample" class="navbar-menu">          
-        <div class="navbar-start">
-        <a href="index.html" class="navbar-item" class="navtext">
-          Home
-        </a>
-
-        <a href="market.html" class="navbar-item"class="navtext">
-          Market
-        </a>
-
-        <a href="portfolio.html"class="navbar-item"class="navtext">
-          Trade
-        </a>
-
-        <a href="price.html" class="navbar-item"class="navtext">
-          Pricing
-        </a>
-
-        <a href="#FAQcard" class="navbar-item"class="navtext">
-          Help
-        </a>
-      </div>
-        <div class = "navbar-item">
-          <div class="field">
-            <p class="control has-icons-left has-icons-right">
-              <input class="input" type="email" placeholder="Search Symbol">
-              <span class="icon is-small is-left">
-                <img src="./assets/img/search.png">
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </p>
-          </div>
-        </div>
-
-        <div class="navbar-item">
-          <div class="buttons">
-            <a href="create-account.html" class="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-            <a class="button is-light js-modal-trigger" data-target="login-container" id="login-button">
-              Log in
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
   <section class="section">      
     <div class="container">          
 
@@ -164,116 +108,16 @@
 <!-- End Model with form to add new stock/symbol -->
 
   </section>
-  <footer class="footer margin-footer" id="foot">
-    <div class="content has-text-centered" >
-      <p>
-        <a href="https://https://github.com/yummy314159265/StockMarketSimulator">Manage Email Preferences   </a>  &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://opensource.org/licenses/mit-license.php">Terms of Use </a> &nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Accessibility</a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Privacy Policy </a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Do Not Sell My Personal Information </a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Contact Us</a>&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;
-      </p>
-      <img src = "./assets/img/logo.png">
-    </div>
-  </footer>
+  <!-- footer do not delete -->
+  <div id="footer-container"></div>
+  <!-- footer do not delete -->
 
   <!-- login modal do not delete -->
-  <div class="modal" id="login-container">
-    <div class="modal-background"></div>
-    
-      <div class="modal-content">
-        <form action="" class="box">
-
-          <div class="field">
-            <label for="" class="label">Email</label>
-            <div class="control has-icons-left">
-              <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" id="login-email" required>
-              <span class="icon is-small is-left">
-                <i class="fa fa-envelope"></i>
-              </span>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="" class="label">Password</label>
-            <div class="control has-icons-left">
-              <input type="password" placeholder="*******" class="input" id="login-password" required>
-              <span class="icon is-small is-left">
-                <i class="fa fa-lock"></i>
-              </span>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="" class="checkbox">
-              <input type="checkbox" id="login-remember-me">
-              Remember me
-            </label>
-          </div>
-
-          <div class="field">
-            <button class="button is-success" id="m-login-button">
-              Login
-            </button>
-          </div>
-
-        </form>
-
-      </div>
-
-    <button class="modal-close is-large" aria-label="close"></button>
-  </div>
+  <div id="modal-container"></div>
+  <!-- login modal do not delete -->
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Functions to open and close a modal
-  function openModal($el) {
-    $el.classList.add('is-active');
-  }
-
-  function closeModal($el) {
-    $el.classList.remove('is-active');
-  }
-
-  function closeAllModals() {
-    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-      closeModal($modal);
-    });
-  }
-
-  // Add a click event on buttons to open a specific modal
-  (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-    const modal = $trigger.dataset.target;
-    const $target = document.getElementById(modal);
-    console.log($target);
-
-    $trigger.addEventListener('click', () => {
-      openModal($target);
-    });
-  });
-
-  // Add a click event on various child elements to close the parent modal
-  (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-    const $target = $close.closest('.modal');
-
-    $close.addEventListener('click', () => {
-      closeModal($target);
-    });
-  });
-
-  // Add a keyboard event to close all modals
-  document.addEventListener('keydown', (event) => {
-    const e = event || window.event;
-
-    if (e.keyCode === 27) { // Escape key
-      closeAllModals();
-    }
-  });
-});
-
-  </script>
-  <!-- <script src="./assets/js/modals.js"></script> -->
+  <script type="module" src="./assets/js/potato_module.js"></script>
   <script src="./assets/js/portfolio.js"></script>
 </body>
 </html>

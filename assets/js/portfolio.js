@@ -65,6 +65,7 @@ function displayPortfolio()
   // to format number to amount    
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
+  
   for(var i=0; i<dbuserportfolio.length; i++)
   {        
 
