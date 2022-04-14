@@ -1,53 +1,43 @@
 var newsListEl = $('#news-list');
 
-const endpointURL= "https://api.polygon.io/v2/reference/news?apiKey=GC9ROGPfIcOolOpnKpoEyjmILLnT5xPv";
+const endpointURL= "https://api.polygon.io/v2/reference/news?ticker=AAPL&apiKey=GC9ROGPfIcOolOpnKpoEyjmILLnT5xPv";
 
-var data = {"results":[{"id":"3ENM-3gH_I2002E1pqUgwEKqQtJJQtSZbgKwS410oCU","publisher":{"name":"The Motley Fool","homepage_url":"https://www.fool.com/","logo_url":"https://s3.polygon.io/public/assets/news/logos/themotleyfool.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/themotleyfool.ico"},"title":"Nasdaq Is Down but Investors Are Watching These 2 Winning Nasdaq Stocks","author":"newsfeedback@fool.com (Stefon Walters)","published_utc":"2022-04-14T16:04:14Z","article_url":"https://www.fool.com/investing/2022/04/14/nasdaq-fall-investors-watch-google-crowdstrike/","tickers":["CRWD","GOOGL","GOOG"],"image_url":"https://g.foolcdn.com/editorial/images/674476/gettyimages-1321462048.jpg","description":"These Nasdaq-traded companies are good long-term plays despite the market's poor performance in 2022.","keywords":["investing"]},{"id":"jWm5vbau6S5J51CVDONOuJDoBBCNNoEiGgff4nlxWlA","publisher":{"name":"GlobeNewswire Inc.","homepage_url":"https://www.globenewswire.com","logo_url":"https://s3.polygon.io/public/assets/news/logos/globenewswire.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/globenewswire.ico"},"title":"Les Séries Esports de TELUS propulsées par Nanoleaf reviendront pour présenter leur deuxième tournoi mettant en vedette Apex Legends et Rocket League","author":"TELUS Communications Inc","published_utc":"2022-04-14T16:00:00Z","article_url":"https://www.globenewswire.com/news-release/2022/04/14/2422954/0/fr/Les-S%C3%A9ries-Esports-de-TELUS-propuls%C3%A9es-par-Nanoleaf-reviendront-pour-pr%C3%A9senter-leur-deuxi%C3%A8me-tournoi-mettant-en-vedette-Apex-Legends-et-Rocket-League.html","tickers":["T","TU"],"amp_url":"https://www.globenewswire.com/news-release/2022/04/14/2422954/0/fr/Les-S%C3%A9ries-Esports-de-TELUS-propuls%C3%A9es-par-Nanoleaf-reviendront-pour-pr%C3%A9senter-leur-deuxi%C3%A8me-tournoi-mettant-en-vedette-Apex-Legends-et-Rocket-League.html","image_url":"https://ml.globenewswire.com/Resource/Download/7220aa9a-75b9-43f2-9666-f096cd987baa?size=1","description":"TELUS lance un appel aux amateurs de jeu vidéo de tous les niveaux pour qu’ils participent aux plus importantes séries Rocket League au pays et à leurs premières séries Apex Legends : ils courent la chance de gagner plus de 80 000 $ en prix TELUS lance un appel aux amateurs de jeu vidéo de tous les niveaux pour qu’ils participent aux plus importantes séries Rocket League au pays et à leurs premières séries Apex Legends : ils courent la chance de gagner plus de 80 000 $ en prix","keywords":["Arts \u0026 Entertainment","Calendar of Events"]},{"id":"cyf0AyAhOcuO8dJ3wpA7E3kH5KEuqpkU2kJ7tm_50lw","publisher":{"name":"GlobeNewswire Inc.","homepage_url":"https://www.globenewswire.com","logo_url":"https://s3.polygon.io/public/assets/news/logos/globenewswire.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/globenewswire.ico"},"title":"TELUS Esports Series powered by Nanoleaf returns to host its second tournament featuring Apex Legends and Rocket League","author":"TELUS Communications Inc","published_utc":"2022-04-14T16:00:00Z","article_url":"https://www.globenewswire.com/news-release/2022/04/14/2422954/0/en/TELUS-Esports-Series-powered-by-Nanoleaf-returns-to-host-its-second-tournament-featuring-Apex-Legends-and-Rocket-League.html","tickers":["T","TU"],"amp_url":"https://www.globenewswire.com/news-release/2022/04/14/2422954/0/en/TELUS-Esports-Series-powered-by-Nanoleaf-returns-to-host-its-second-tournament-featuring-Apex-Legends-and-Rocket-League.html","image_url":"https://ml.globenewswire.com/Resource/Download/68c2e756-618f-47fe-a123-ca3b0fd9ac55?size=1","description":"TELUS is calling upon Canadian gamers of all skill levels to join the biggest Canada-wide Rocket League Esports series and its first ever Apex Legends esport series for a chance to win more than $80,000 in prizes TELUS is calling upon Canadian gamers of all skill levels to join the biggest Canada-wide Rocket League Esports series and its first ever Apex Legends esport series for a chance to win more than $80,000 in prizes","keywords":["Arts \u0026 Entertainment","Calendar of Events"]},{"id":"_-tPWvy4lgEW7rZvpft3gWsXbALGrSLhYVycF6y8VjU","publisher":{"name":"GlobeNewswire Inc.","homepage_url":"https://www.globenewswire.com","logo_url":"https://s3.polygon.io/public/assets/news/logos/globenewswire.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/globenewswire.ico"},"title":"EssilorLuxottica: EssilorLuxottica finalizza l’acquisizione di GrandVision","author":"EssilorLuxottica","published_utc":"2022-04-14T16:00:00Z","article_url":"https://www.globenewswire.com/news-release/2022/04/14/2422951/0/it/EssilorLuxottica-EssilorLuxottica-finalizza-l-acquisizione-di-GrandVision.html","tickers":["EL"],"amp_url":"https://www.globenewswire.com/news-release/2022/04/14/2422951/0/it/EssilorLuxottica-EssilorLuxottica-finalizza-l-acquisizione-di-GrandVision.html","image_url":"https://ml-eu.globenewswire.com/Resource/Download/771f5904-cbd2-4904-bcea-57d1571cff80?size=1","description":"EssilorLuxottica finalizza l’acquisizione di GrandVision","keywords":["Mergers and Acquisitions","European Regulatory News"]},{"id":"B4PZSiXFV4VWrp2ApSI5NXQ7ESaA_wccifG_c0X2fF8","publisher":{"name":"GlobeNewswire Inc.","homepage_url":"https://www.globenewswire.com","logo_url":"https://s3.polygon.io/public/assets/news/logos/globenewswire.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/globenewswire.ico"},"title":"EssilorLuxottica: Completion of statutory buy-out of GrandVision shareholders","author":"EssilorLuxottica","published_utc":"2022-04-14T16:00:00Z","article_url":"https://www.globenewswire.com/news-release/2022/04/14/2422951/0/en/EssilorLuxottica-Completion-of-statutory-buy-out-of-GrandVision-shareholders.html","tickers":["EL"],"amp_url":"https://www.globenewswire.com/news-release/2022/04/14/2422951/0/en/EssilorLuxottica-Completion-of-statutory-buy-out-of-GrandVision-shareholders.html","image_url":"https://ml-eu.globenewswire.com/Resource/Download/771f5904-cbd2-4904-bcea-57d1571cff80?size=1","description":"Completion of statutory buy-out of GrandVision shareholders","keywords":["Mergers and Acquisitions","European Regulatory News"]},{"id":"98h7nbUR6Xg6pj24n4gknWBPGjZkxPh0j4mYQ4HWzKw","publisher":{"name":"GlobeNewswire Inc.","homepage_url":"https://www.globenewswire.com","logo_url":"https://s3.polygon.io/public/assets/news/logos/globenewswire.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/globenewswire.ico"},"title":"EssilorLuxottica: Finalisation de l’offre de retrait obligatoire des actionnaires de GrandVision","author":"EssilorLuxottica","published_utc":"2022-04-14T16:00:00Z","article_url":"https://www.globenewswire.com/news-release/2022/04/14/2422951/0/fr/EssilorLuxottica-Finalisation-de-l-offre-de-retrait-obligatoire-des-actionnaires-de-GrandVision.html","tickers":["EL"],"amp_url":"https://www.globenewswire.com/news-release/2022/04/14/2422951/0/fr/EssilorLuxottica-Finalisation-de-l-offre-de-retrait-obligatoire-des-actionnaires-de-GrandVision.html","image_url":"https://ml-eu.globenewswire.com/Resource/Download/771f5904-cbd2-4904-bcea-57d1571cff80?size=1","description":"Finalisation de l’offre de retrait obligatoire des actionnaires de GrandVision","keywords":["Mergers and Acquisitions","European Regulatory News"]},{"id":"kQGCpsfq09pWVxV27-J3MPCFzaOsJGK9V1g1Pdayk0c","publisher":{"name":"MarketWatch","homepage_url":"https://www.marketwatch.com/","logo_url":"https://s3.polygon.io/public/assets/news/logos/marketwatch.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/marketwatch.ico"},"title":"Trump says he 'probably wouldn’t have any interest' in returning to 'very boring' Twitter if Musk allows him back on","author":"MarketWatch","published_utc":"2022-04-14T15:51:00Z","article_url":"https://www.marketwatch.com/story/trump-says-he-probably-wouldnt-have-any-interest-in-returning-to-very-boring-twitter-if-musk-allows-him-back-on-11649951473","tickers":["TWTR","TSLA"],"amp_url":"https://www.marketwatch.com/amp/story/trump-says-he-probably-wouldnt-have-any-interest-in-returning-to-very-boring-twitter-if-musk-allows-him-back-on-11649951473","image_url":"https://images.mktw.net/im-524952/social","description":"Billionaire Elon Musk’s bid for Twitter has sparked tweets Thursday about how former President Donald Trump might end up getting reinstated on the platform, but Trump himself just said he has no interest in returning."},{"id":"-KhSpmCXjjL2lfAf6JQFRlIpNptoo8WdYv_NQLYOUZk","publisher":{"name":"The Motley Fool","homepage_url":"https://www.fool.com/","logo_url":"https://s3.polygon.io/public/assets/news/logos/themotleyfool.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/themotleyfool.ico"},"title":"Why Twitter Stock Is Up Only Slightly Today","author":"newsfeedback@fool.com (Rich Duprey)","published_utc":"2022-04-14T15:50:32Z","article_url":"https://www.fool.com/investing/2022/04/14/why-twitter-stock-is-up-only-slightly-today/","tickers":["TWTR"],"image_url":"https://g.foolcdn.com/editorial/images/674728/cash-money-100-50-getty.jpg","description":"You'd think a buyout offer would have more people excited.","keywords":["investing"]},{"id":"AV9lHr74ZiH1F_wQZn8ArGiGg3-Q6yZflBT8gRSFmAg","publisher":{"name":"Benzinga","homepage_url":"https://www.benzinga.com/","logo_url":"https://s3.polygon.io/public/assets/news/logos/benzinga.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/benzinga.ico"},"title":"Credit Suisse Gains Conviction On Luminar, Thanks To Volvo, Mercedes, Nvidia","author":"Anusuya Lahiri","published_utc":"2022-04-14T15:49:47Z","article_url":"https://www.benzinga.com/analyst-ratings/analyst-color/22/04/26636719/credit-suisse-gains-conviction-on-luminar-thanks-to-volvo-mercedes-nvidia","tickers":["NVDA","LAZR"],"amp_url":"https://www.benzinga.com/amp/content/26636719","image_url":"https://cdn.benzinga.com/files/images/story/2022/04/14/abtech_10.png?width=1200\u0026height=800\u0026fit=crop","description":"Credit Suisse analyst Dan Levy initiated coverage of Luminar Technologies Inc (NASDAQ: LAZR) with an Outperform rating and a $22 price target (51% upside). \nThe analyst is optimistic about Luminar, as he believes the company is the \"best of breed in the rapidly growing\" mobility LiDAR market.\nIts commercial progress reflects a moat in LiDAR for advanced safety/highway autopilot. \nLuminar is the LiDAR company that has thus ...Full story available on Benzinga.com","keywords":["News","Analyst Color","Price Target","Initiation","Analyst Ratings","Tech"]},{"id":"xBQcHU34rm8_208jrYdr_toqA8N_mku2D-8dj0UR83g","publisher":{"name":"MarketWatch","homepage_url":"https://www.marketwatch.com/","logo_url":"https://s3.polygon.io/public/assets/news/logos/marketwatch.svg","favicon_url":"https://s3.polygon.io/public/assets/news/favicons/marketwatch.ico"},"title":"European stocks rise as ECB confirms end of bond buying; Ericsson falls 8%","author":"MarketWatch","published_utc":"2022-04-14T15:47:00Z","article_url":"https://www.marketwatch.com/story/european-stocks-rise-as-ecb-confirms-end-of-bond-buying-ericsson-falls-8-11649951188","tickers":["ERIC"],"amp_url":"https://www.marketwatch.com/amp/story/european-stocks-rise-as-ecb-confirms-end-of-bond-buying-ericsson-falls-8-11649951188","image_url":"https://mw3.wsj.net/mw5/content/logos/mw_logo_social.png","description":"European stocks closed slightly higher Thursday as the European Central Bank confirmed its asset purchase program will end in the third quarter."}],"status":"OK","request_id":"4b959d067f7f36c388303e25485ad1df","count":10,"next_url":"https://api.polygon.io/v2/reference/news?cursor=YXA9MjAyMi0wNC0xNFQxNSUzQTQ3JTNBMDBaJmFzPXhCUWNIVTM0cm04XzIwOGpyWWRyX3RvcUE4Tl9ta3UyRC04ZGowVVI4M2cmb3JkZXI9ZGVzY2VuZGluZw"}
-// News Heading   
-for(let i = 0; i < data.results.length; i++)
-{       
-    var headerEl = $('<p class=subtitle>');
-    headerEl.text(data.results[i].title);
-    newsListEl.append(headerEl);
-
-    var pEl = $('<p>');
-    pEl.text("Published: " + data.results[i].published_utc);
-    newsListEl.append(pEl);
-    
-    var pEl = $('<p>');
-    pEl.text("Author: " + data.results[i].author);
-    newsListEl.append(pEl);
-
-     var aEl = $('<a>');
-     aEl.text("See more..");
-     aEl.attr("href", data.results[i].article_url);
-     aEl.attr("target", "_blank");
-     newsListEl.append(aEl);
-
-    var hrEl = $('<hr>');
-    newsListEl.append(hrEl);
-}
-
-// fetch(endpointURL)
-// .then(function (response) {        
-//   if (response.ok) {
-//       response.json().then(function (data) {
+fetch(endpointURL)
+.then(function (response) {        
+  if (response.ok) {
+      response.json().then(function (data) {
         
-//         for(let i = 0; i < data.length; i++)
-//         {
-//           // News Heading          
-//             var HeaderEl = $('<h2>');
-//             h2.html('News Heading');
-//             tableRowEl.append(tableColumnEl);
-//         }
+        for(let i = 0; i < data.results.length; i++)
+        {       
+            var headerEl = $('<p class=subtitle>');
+            headerEl.text(data.results[i].title);
+            newsListEl.append(headerEl);
 
-//     });
-//   } else {
-//       newsListEl.textContent = "There was an error retrieving data: " + response.statusText;        
-//   }
-// })
-// .catch(function (error) {
-//       newsListEl.textContent = "There was an error connecting API";        
-// });
+            var pEl = $('<p>');
+            pEl.text("Published: " + data.results[i].published_utc);
+            newsListEl.append(pEl);
+            
+            var pEl = $('<p>');
+            pEl.text("Author: " + data.results[i].author);
+            newsListEl.append(pEl);
+
+            var aEl = $('<a>');
+            aEl.text("See more..");
+            aEl.attr("href", data.results[i].article_url);
+            aEl.attr("target", "_blank");
+            newsListEl.append(aEl);
+
+            var hrEl = $('<hr>');
+            newsListEl.append(hrEl);
+        }
+
+    });
+  } else {
+      newsListEl.textContent = "There was an error retrieving data: " + response.statusText;        
+  }
+})
+.catch(function (error) {
+      newsListEl.textContent = "There was an error connecting API";        
+});
 
 
