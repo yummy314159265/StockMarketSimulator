@@ -17,10 +17,29 @@
     <!-- navbar do not delete -->
   </header>
 
-  <section class="section margin-top-el">
-    <div class="container columns">
-        <h2>Search results:</h2>
-        <ul id="search-results"></ul>
+  <section class="section">
+    <div class="field">
+      <form class="search-forms" id="search-form-page">
+          <p class="control has-icons-left has-icons-right">
+          <input class="input searchbar" type="search" placeholder="Search Symbol" id="search-input-page">
+          <span class="icon is-small is-left">
+              <img src="./assets/img/search.png">
+          </span>
+          <span class="icon is-small is-right">
+              <i class="fas fa-check"></i>
+          </span>
+          </p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="">
+      <h2>Search results:</h2>
+    </div>
+    <div>
+      <ul class="columns is-multiline" id="search-results-list">
+      </ul>
     </div>
   </section>
 
@@ -34,6 +53,5 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="./assets/js/potato_module.js"></script>
-  <script src="./assets/js/search.js"></script>
 </body>
 </html>
