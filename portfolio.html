@@ -35,6 +35,48 @@
   <div id="footer-container"></div>
   <!-- footer do not delete -->
 
+
+      <!-- Model with form option to buy/sell stock -->
+    <div class="modal" id="modal-trade">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Trade</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- form starts -->
+          <form name="frmcreatesymbol" id="form-create-symbol" method="post" action="index.html">            
+             <div class="field">
+              <div class="control">
+                <input required class="input" type="text" name="symbolname" id="symbol-name" 
+                placeholder="Symbol">
+              </div>
+             </div>
+             <div class="field">
+              <div class="control">
+                <div class="select" >
+                  <select name="tradeaction" id="trade-action" required>
+                    <option value="" disabled >Select your option</option>
+                    <option value="Buy">Buy</option>
+                    <option value="Sell">Sell</option>                  
+                  </select>
+                </div>
+              </div>
+            </div>             
+             <div class="field">
+              <div class="control">
+                <input required class="input" type="number" name="stockqty" id="stock-qty" 
+                placeholder="Quantity">
+              </div>
+             </div>
+             <button class="button" id="submitbutton" type="submit">Submit Order</button>
+             Note for team: form not working as price and calculation should come from API
+            </form>
+        </section>       
+      
+      </div>
+
   <!-- Model with form to create new portfolio -->
   <div class="modal" id="modal-create-portfolio">
     <div class="modal-background"></div>
@@ -107,7 +149,7 @@
             Note for team: form not working as price and calculation should come from API
           </form>
       </section>       
-    
+ 
     </div>
   </div>
 
@@ -117,8 +159,10 @@
   <div id="modal-container"></div>
   <!-- login modal do not delete -->
   
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="./assets/js/potato_module.js"></script>
   <script src="./assets/js/portfolio.js"></script>
+  <script src="./assets/js/test.js"></script>
 </body>
 </html>
