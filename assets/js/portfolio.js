@@ -24,7 +24,7 @@ var userId = 1; // change from session object later
 
 // Render portfolio from localStorage in table format
 function displayPortfolio()
-{
+{  
   showPortFolioListEl.text(''); 
   var dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio"));         
    // Create Table
@@ -65,6 +65,7 @@ function displayPortfolio()
   // to format number to amount    
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
+  
   for(var i=0; i<dbuserportfolio.length; i++)
   {        
 
@@ -108,7 +109,7 @@ function displayPortfolio()
     //tableColumnEl.append(faIconEl);  
     
     tableBodyEl.append(tableColumnEl);  
-  }
+  }  
   tableEl.append(tableBodyEl);
   showPortFolioListEl.append(tableEl);
 }
@@ -273,7 +274,7 @@ var savePortfolio = function (event) {
   });
 
   function init()
-  {
+  {    
     displayPortfolio();
     buttonAddSymbolEl.hide();
   }

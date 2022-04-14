@@ -18,19 +18,11 @@ h3 {
 }
 
 a.navbar-item {
-    font-size:30px;
+    font-size:20px;
 }
 
 .text-center { 
     text-align: center;
-}
-
-.FAQ {
-    list-style:none;
-}
-
-.margin-top-el {
-    margin-top: 61px;
 }
 
 .rounded-corners {
@@ -67,13 +59,17 @@ img.rounded-corners {
 .blacktheme {
     background-color: #000;
 }
+
 #FAQlist{
     list-style:none;
 }
 
-#foot{
-    background-color: gray;
+#footer-container{
     margin-top: auto;
+}
+
+#foot {
+    background-color: gray;
 }
 
 #FAQcard{

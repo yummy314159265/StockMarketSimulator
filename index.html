@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Stock Simulator - Sharpen your trading skills risk free!</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/stylesheet.css" />
 </head>
 
+<!-- fixing merge issue -->
 <body>
   <header>
     <!-- INCLUDE THIS DIV IN ALL HTML FILES navbar html handled by loads.js -->
@@ -43,7 +44,45 @@
     </section>
 
   </header>
-
+  <section class="section">
+    <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Markets</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+  {
+  "symbols": [
+    {
+      "proName": "FOREXCOM:SPXUSD",
+      "title": "S&P 500"
+    },
+    {
+      "proName": "FOREXCOM:NSXUSD",
+      "title": "US 100"
+    },
+    {
+      "proName": "FX_IDC:EURUSD",
+      "title": "EUR/USD"
+    },
+    {
+      "proName": "BITSTAMP:BTCUSD",
+      "title": "Bitcoin"
+    },
+    {
+      "proName": "BITSTAMP:ETHUSD",
+      "title": "Ethereum"
+    }
+  ],
+  "showSymbolLogo": true,
+  "colorTheme": "light",
+  "isTransparent": false,
+  "displayMode": "adaptive",
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
+  </section>
   <section class="section">
     <div class="columns container-fluid m-2">
       <div class="column">        
@@ -57,7 +96,7 @@
       </div>
       <div class="column">
         <div class="has-text-centered">
-          <img src="./assets/img/icons8-stock-market-64.png" alt="Paper Trading">
+          <img src="./assets/img/icon-simulator.png" alt="Why use a stock market simulator">
          </div>
         <p class="subtitle has-text-weight-bold has-text-centered">Why use a stock market simulator?</p>
         <p class="has-text-centered">Investors use stock market simulators to buy and sell stocks without using real money and sharpen trading skills. 
@@ -66,7 +105,7 @@
       </div>
       <div class="column">
         <div class="has-text-centered">
-          <img src="./assets/img/icons8-stock-market-64.png" alt="Paper Trading">
+          <img src="./assets/img/icon-how.png" alt="How it works?">
          </div>
           <p class="subtitle has-text-weight-bold has-text-centered">How it works?</p>
           <p class="has-text-centered">It's easy to get started with stock simulator offered by this website. Once you have created 
@@ -115,12 +154,142 @@
   <section class="section">      
     <div class="columns">
 
-      <div class="column is-one-third">
-        <h2>Live charting</h2>
-        <p>some info</p>
+      <div class="column is-two-thirds">
+       <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/markets/" rel="noopener" target="_blank"><span class="blue-text">Financial Markets</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+  {
+  "width": 770,
+  "height": 450,
+  "symbolsGroups": [
+    {
+      "name": "Indices",
+      "originalName": "Indices",
+      "symbols": [
+        {
+          "name": "FOREXCOM:SPXUSD",
+          "displayName": "S&P 500"
+        },
+        {
+          "name": "FOREXCOM:NSXUSD",
+          "displayName": "US 100"
+        },
+        {
+          "name": "FOREXCOM:DJI",
+          "displayName": "Dow 30"
+        },
+        {
+          "name": "INDEX:NKY",
+          "displayName": "Nikkei 225"
+        },
+        {
+          "name": "INDEX:DEU40",
+          "displayName": "DAX Index"
+        },
+        {
+          "name": "FOREXCOM:UKXGBP",
+          "displayName": "UK 100"
+        }
+      ]
+    },
+    {
+      "name": "Futures",
+      "originalName": "Futures",
+      "symbols": [
+        {
+          "name": "CME_MINI:ES1!",
+          "displayName": "S&P 500"
+        },
+        {
+          "name": "CME:6E1!",
+          "displayName": "Euro"
+        },
+        {
+          "name": "COMEX:GC1!",
+          "displayName": "Gold"
+        },
+        {
+          "name": "NYMEX:CL1!",
+          "displayName": "Crude Oil"
+        },
+        {
+          "name": "NYMEX:NG1!",
+          "displayName": "Natural Gas"
+        },
+        {
+          "name": "CBOT:ZC1!",
+          "displayName": "Corn"
+        }
+      ]
+    },
+    {
+      "name": "Bonds",
+      "originalName": "Bonds",
+      "symbols": [
+        {
+          "name": "CME:GE1!",
+          "displayName": "Eurodollar"
+        },
+        {
+          "name": "CBOT:ZB1!",
+          "displayName": "T-Bond"
+        },
+        {
+          "name": "CBOT:UB1!",
+          "displayName": "Ultra T-Bond"
+        },
+        {
+          "name": "EUREX:FGBL1!",
+          "displayName": "Euro Bund"
+        },
+        {
+          "name": "EUREX:FBTP1!",
+          "displayName": "Euro BTP"
+        },
+        {
+          "name": "EUREX:FGBM1!",
+          "displayName": "Euro BOBL"
+        }
+      ]
+    },
+    {
+      "name": "Forex",
+      "originalName": "Forex",
+      "symbols": [
+        {
+          "name": "FX:EURUSD"
+        },
+        {
+          "name": "FX:GBPUSD"
+        },
+        {
+          "name": "FX:USDJPY"
+        },
+        {
+          "name": "FX:USDCHF"
+        },
+        {
+          "name": "FX:AUDUSD"
+        },
+        {
+          "name": "FX:USDCAD"
+        }
+      ]
+    }
+  ],
+  "showSymbolLogo": true,
+  "colorTheme": "light",
+  "isTransparent": false,
+  "locale": "en"
+}
+  </script>
+</div>
+<!-- TradingView Widget END -->
       </div>
 
-      <div class="tradingview-widget-container column is-two-thirds rounded-corners">
+      <div class="tradingview-widget-container column is-one-third rounded-corners">
         <div id="tradingview_1fcf9"></div>
         <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/AAPL/" rel="noopener" target="_blank"><span class="blue-text">Apple</span></a> by TradingView</div>
         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -164,32 +333,7 @@
       </div>
   
     </div>
-  </section>
-
-  <section class="section is-medium">
-    <div class="columns">
-      <div class="column is-two-thirds">
-        <img class="rounded-corners" src="./assets/img/chart-cartoon1.png" alt="Cartoon man dancing on chart lines">
-      </div>
-
-      <div class="column is-one-third">
-        <div>some text</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section is-medium">
-    <div class="columns">
-      <div class="column is-one-third">
-        <div>some text</div>
-      </div>
-
-      <div class="column is-two-thirds">
-        <img class="rounded-corners" src="./assets/img/stock-tickers1.jpg" alt="Wall street stock tickers">
-      </div>
-    </div>
-  </section>
-
+  </section>  
 
   <div class="card">
     <div class="card-content" id="FAQcard">
@@ -217,7 +361,6 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="module" src="./assets/js/potato_module.js"></script>
-  <script src="./assets/js/search.js"></script>
 
 </body>
 </html>

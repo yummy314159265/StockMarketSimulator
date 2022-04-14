@@ -1,6 +1,19 @@
-import { loadHTML } from './loads.js';
 import { init_modals } from './modals.js';
-import { init_user } from './user.js';
+import { quickFix } from './user.js';
+import { init_search } from './search.js';
 
-loadHTML(init_modals, init_user);
+// load HTML before performing doing functions
+const loadHTML = (...funcs) => {
+    $('#navbar-container').load('navbar.html');
+    $('#footer-container').load('footer.html');
+    $('#modal-container').load('modals.html');
+    window.addEventListener('load', (event) => {
+        event.preventDefault();
+        for (let func of funcs) {
+            func();
+        }
+    });
+}
+
+loadHTML(init_modals, quickFix, init_search);
 
