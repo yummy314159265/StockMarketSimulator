@@ -56,7 +56,7 @@
             <div class="control">
               <label class="checkbox">
                 <input type="checkbox" required id="checkbox-agree-terms">
-                I agree to the <a href="#">terms and conditions</a>
+                I agree to the <a class="js-modal-trigger" data-target="modal-terms">terms and conditions</a>
               </label>
             </div>
           </div>             
@@ -73,7 +73,24 @@
         </form>
       </div>
     </section>
-
+    <div class="modal" id="modal-terms">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Terms & Conditions</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+            EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+            MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+            NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+            LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+            OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+            WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p> 
+        </section>
+      </div>
+    </div>
     <div id="footer-container"></div>
 
     <div id="modal-container"></div>
