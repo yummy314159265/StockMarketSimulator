@@ -81,7 +81,8 @@ fetch(endpointURL)
                 tableRowEl.append(tableColumnEl);                   
 
                 var tableColumnEl = $('<td>');
-                var unixFormat = moment.unix(data.results[i].t).format("MMM Do, YYYY, LT");                              
+                var lastUpdatedTimeStamp = new Date(data.results[i].t);
+                var unixFormat = moment(lastUpdatedTimeStamp).format("MMM Do, YYYY, LT");                              
                 tableColumnEl.text(unixFormat);
                 tableRowEl.append(tableColumnEl);   
 
