@@ -116,167 +116,322 @@ function displayPortfolio()
 
 // fetch user input and save new portfolio to local storage
 var savePortfolio = function (event) {
-    event.preventDefault();
-    var namePortfolio = namePortfolioEl.val();
-    var investmentAmount = investmentAmountEl.val();
-  
-    if (!namePortfolio || !investmentAmount) {
-      errorMessageEl.text("Please enter required fields!")        
-      return;
-    }
-  
-    var portfolioObject = {
-        userid: userId,
-        portfolioname: namePortfolio,
-        investmentamount: investmentAmount
-    };
+  event.preventDefault();
+  var namePortfolio = namePortfolioEl.val();
+  var investmentAmount = investmentAmountEl.val();
 
-    dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio") || "[]");
-    dbuserportfolio.push(portfolioObject);
-    localStorage.setItem("dbuserportfolio", JSON.stringify(dbuserportfolio));
-    
-    // resets form
-    namePortfolioEl.val('');
-    investmentAmountEl.val('');
-    modelCreatePortfolioEl.removeClass('is-active');
-    displayPortfolio();
-  };
-
-  // Event listener to add new portfolio
-  formCreatePortfolio.on('submit', savePortfolio);
-  
-  // remove portfolio if user request  
-  function deletePortfolio(id)
-  {
-    var dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio"));         
-    var newLocalStorage = [];
-    for(var i=0; i<dbuserportfolio.length; i++)
-    {
-        if(id != i)  
-        {
-            newLocalStorage.push(dbuserportfolio[i]);
-        }        
-    }
-    localStorage.setItem("dbuserportfolio", JSON.stringify(newLocalStorage));
-    displayPortfolio();
+  if (!namePortfolio || !investmentAmount) {
+    errorMessageEl.text("Please enter required fields!")        
+    return;
   }
 
-  //event delegation use to remove portfolio
-  showPortFolioListEl.on('click', '.fa-remove', function (event) {
-    var ans = confirm("Are you sure want to delete selected portfolio?")
-    if(ans == true)
-    {
-       deletePortfolio($(this).attr('id'));
-    }    
-  });
+  var portfolioObject = {
+      userid: userId,
+      portfolioname: namePortfolio,
+      investmentamount: investmentAmount
+  };
+
+  dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio") || "[]");
+  dbuserportfolio.push(portfolioObject);
+  localStorage.setItem("dbuserportfolio", JSON.stringify(dbuserportfolio));
+  
+  // resets form
+  namePortfolioEl.val('');
+  investmentAmountEl.val('');
+  modelCreatePortfolioEl.removeClass('is-active');
+  displayPortfolio();
+};
+
+  
+// remove portfolio if user request  
+function deletePortfolio(id) {
+  var dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio"));         
+  var newLocalStorage = [];
+  for(var i=0; i<dbuserportfolio.length; i++)
+  {
+      if(id != i)  
+      {
+          newLocalStorage.push(dbuserportfolio[i]);
+      }        
+  }
+  localStorage.setItem("dbuserportfolio", JSON.stringify(newLocalStorage));
+  displayPortfolio();
+}
    
- // Following are functions/calls for My Portfolios - Individual Page
+// Following are functions/calls for My Portfolios - Individual Page
 // Flow:
 // 1. displaySinglePortfolio() will render portfolio details from localStorage + API
 
 // show single portfolio when clicked
-  function displaySinglePortfolio(portfolioName)
+function displaySinglePortfolio(portfolioName) {
+  h1El.html("<a href='portfolio.html'>My Portfolios</a> / " + portfolioName);
+  buttonCreatePortfolioEl.hide();
+  buttonAddSymbolEl.show();
+  showPortFolioListEl.html('');
+}
+
+
+// Event listener to add new portfolio
+formCreatePortfolio.on('submit', savePortfolio); 
+
+//event delegation use to remove portfolio
+showPortFolioListEl.on('click', '.fa-remove', function (event) {
+  var ans = confirm("Are you sure want to delete selected portfolio?")
+  if(ans == true)
   {
-    h1El.html("<a href='portfolio.html'>My Portfolios</a> / " + portfolioName);
-    buttonCreatePortfolioEl.hide();
-    buttonAddSymbolEl.show();
-    showPortFolioListEl.html('');
-  }
+      deletePortfolio($(this).attr('id'));
+  }    
+});
+
+//event delegation user click portfolio
+showPortFolioListEl.on('click', '.portfoliolink', function (event) {
+  displaySinglePortfolio($(this).text());      
+      // Create Table
+    var tableEl = $('<table id=holdings-table>');
+    tableEl.attr('class', 'table table is-fullwidth');
+
+    // Create Table Head
+    var tableHeadEl = $('<thead>');
+    tableEl.append(tableHeadEl);
+
+    // Create Table Row
+    var tableRowEl = $('<tr>');
+    tableHeadEl.append(tableRowEl);
+
+    // Create Table Column
+    var tableColumnEl = $('<th>');
+    tableColumnEl.text('Symbol');
+    tableRowEl.append(tableColumnEl);   
+    var tableColumnEl = $('<th>');
+    tableColumnEl.text('Last Price');
+    tableRowEl.append(tableColumnEl);   
+    var tableColumnEl = $('<th>');
+    tableColumnEl.text("Today's Gain/Loss");
+    tableRowEl.append(tableColumnEl);   
+    var tableColumnEl = $('<th>');
+    tableColumnEl.text('Total Gain/Loss');
+    tableRowEl.append(tableColumnEl);   
+    var tableColumnEl = $('<th>');
+    tableColumnEl.text('Current Value');
+    tableRowEl.append(tableColumnEl);   
+    var tableColumnEl = $('<th>');
+    tableColumnEl.text('Quantity');
+    tableRowEl.append(tableColumnEl);   
+    var tableColumnEl = $('<th>');
+    tableColumnEl.text('Cost Basis');
+    tableRowEl.append(tableColumnEl);   
+    tableEl.append(tableEl);
+    // Work pending to pull data from localStorage + API
+
   
 
-  //event delegation user click portfolio
-  showPortFolioListEl.on('click', '.portfoliolink', function (event) {
-    displaySinglePortfolio($(this).text());      
-        // Create Table
-      var tableEl = $('<table>');
-      tableEl.attr('class', 'table table is-fullwidth');
 
-      // Create Table Head
-      var tableHeadEl = $('<thead>');
-      tableEl.append(tableHeadEl);
-
+    // table footer summary
       // Create Table Row
+      var tableFooterEl = $('<tfoot>');
+
       var tableRowEl = $('<tr>');
-      tableHeadEl.append(tableRowEl);
+      tableFooterEl.append(tableRowEl);
 
       // Create Table Column
       var tableColumnEl = $('<th>');
-      tableColumnEl.text('Symbol');
-      tableRowEl.append(tableColumnEl);   
+      tableColumnEl.text('Account Total');
+      tableRowEl.append(tableColumnEl);
+
       var tableColumnEl = $('<th>');
-      tableColumnEl.text('Last Price');
+      tableColumnEl.text('-'); // leave blank
       tableRowEl.append(tableColumnEl);   
+
+      var tableColumnEl = $('<th id=daily-gain-loss-total>');
+      tableColumnEl.text(""); // Show Today's Gain/Loss here
+      tableRowEl.append(tableColumnEl);   
+
+      var tableColumnEl = $('<th id=total-gain-loss-total>');
+      tableColumnEl.text(''); // Show Total Gain/Loss here
+      tableRowEl.append(tableColumnEl);   
+
+      var tableColumnEl = $('<th id=current-value-total>');
+      tableColumnEl.text(''); // Show current value here
+      tableRowEl.append(tableColumnEl);   
+
       var tableColumnEl = $('<th>');
-      tableColumnEl.text("Today's Gain/Loss");
+      tableColumnEl.text('-'); // leave blank
       tableRowEl.append(tableColumnEl);   
+
       var tableColumnEl = $('<th>');
-      tableColumnEl.text('Total Gain/Loss');
+      tableColumnEl.text('-'); // leave blank
       tableRowEl.append(tableColumnEl);   
+
       var tableColumnEl = $('<th>');
-      tableColumnEl.text('Current Value');
+      tableColumnEl.text(''); // leave blank
       tableRowEl.append(tableColumnEl);   
-      var tableColumnEl = $('<th>');
-      tableColumnEl.text('Quantity');
-      tableRowEl.append(tableColumnEl);   
-      var tableColumnEl = $('<th>');
-      tableColumnEl.text('Cost Basis');
-      tableRowEl.append(tableColumnEl);   
-      tableEl.append(tableEl);
-      // Work pending to pull data from localStorage + API
+      
+      tableFooterEl.append(tableRowEl);
+      tableEl.append(tableFooterEl);
 
+      // Append complte table to Show
+      showPortFolioListEl.append(tableEl);
 
-      // table footer summary
-       // Create Table Row
-       var tableFooterEl = $('<tfoot>');
+      // add portfolio data
+      createHoldingsTableEl(tableEl, 'rodin', 'stuff');
 
-       var tableRowEl = $('<tr>');
-       tableFooterEl.append(tableRowEl);
- 
-       // Create Table Column
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text('Account Total');
-       tableRowEl.append(tableColumnEl);
+});
 
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text(''); // leave blank
-       tableRowEl.append(tableColumnEl);   
+// Rodin's code -------------------------------------------->
 
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text(""); // Show Today's Gain/Loss here
-       tableRowEl.append(tableColumnEl);   
+const getHoldings = (myId, myPortfolio) => {
+  let allHoldings = JSON.parse(localStorage.getItem('holdings')) || [ //this array is for testing
+    {
+      userID: 'rodin',
+      portfolioID: 'stuff',
+      holdingID: 'GME-1',
+      symbol: 'GME',
+      purchasePrice: 200,
+      QTY: 200,
+      purchaseDate: '04/13/2022',
+      isSold: true,
+      salePrice: 4000,
+      soldDate: '04/14/2022'
+    },
 
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text(''); // Show Total Gain/Loss here
-       tableRowEl.append(tableColumnEl);   
+    {
+      userID: 'bitboy',
+      portfolioID: 'lol',
+      holdingID: '0',
+      symbol: 'STD',
+      purchasePrice: 100,
+      QTY: 600,
+      purchaseDate: '03/13/2022',
+      isSold: true,
+      salePrice: .50,
+      soldDate: '03/20/2022'
+    },
 
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text(''); // Show current value here
-       tableRowEl.append(tableColumnEl);   
+    {
+      userID: 'rodin',
+      portfolioID: 'stuff',
+      holdingID: 'GME-2',
+      symbol: 'GME',
+      purchasePrice: 300,
+      QTY: 400,
+      purchaseDate: '04/14/2022',
+      isSold: false,
+      salePrice: 0,
+      soldDate: ''
+    },
 
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text(''); // leave blank
-       tableRowEl.append(tableColumnEl);   
+    {
+      userID: 'rodin',
+      portfolioID: 'stuff',
+      holdingID: 'APPL-1',
+      symbol: 'APPL',
+      purchasePrice: 1,
+      QTY: 1000,
+      purchaseDate: '10/13/1990',
+      isSold: true,
+      salePrice: 500,
+      soldDate: '04/14/2022'
+    }
+  ];
 
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text(''); // leave blank
-       tableRowEl.append(tableColumnEl);   
+  let myHoldings = []
 
-       var tableColumnEl = $('<th>');
-       tableColumnEl.text(''); // leave blank
-       tableRowEl.append(tableColumnEl);   
-       
-       tableFooterEl.append(tableRowEl);
-       tableEl.append(tableFooterEl);
-
-       // Append complte table to Show
-       showPortFolioListEl.append(tableEl);
-
-  });
-
-  function init()
-  {    
-    displayPortfolio();
-    buttonAddSymbolEl.hide();
+  for (let i = 0; i < allHoldings.length; i++) {
+    if (allHoldings[i].userID === myId && allHoldings[i].portfolioID === myPortfolio) {
+      myHoldings.push(allHoldings[i]);
+    }
   }
 
-  init();
+  return myHoldings;
+}
+
+const formatNumbers = (numArr) => {
+  let formattedNum = '';
+  let formattedPercentage = numArr[1].toLocaleString() + '%';
+
+  if (numArr[0] >= 0) {
+    formattedNum = '+$' + numArr[0].toLocaleString();
+    formattedPercentage = '+' + formattedPercentage;
+  } else {
+    formattedNum = '-$' + (Math.abs(numArr[0])).toLocaleString();
+  }
+
+  return [formattedNum, formattedPercentage];
+}
+
+const calculateGainsLosses = (previousPrice, currentPrice, qty) => {
+  let gainsLosses = (qty*currentPrice)-(qty*previousPrice);
+  // calulating percentage to 2 decimal places
+  let percentage = Math.round(gainsLosses/(qty*previousPrice) * 10000)/100;
+
+  return [gainsLosses, percentage];
+}
+
+const createSymbolEl = (holding) => $(`<td id=sym-${holding.holdingID}>${holding.symbol}</td>`);
+
+const createLastPriceEl = (holding, lastPrice) => $(`<td id=last-price-${holding.holdingID}>$${lastPrice}</td>`);
+
+const createDailyGainLossEl = (holding, dailyGainsArray) => $(`<td id=daily-gain-loss-${holding.holdingID}><div>${dailyGainsArray[0]}</div><div>${dailyGainsArray[1]}</div></td>`);
+
+const createTotalGainLossEl = (holding, totalGainsArray) => $(`<td id=total-gain-loss-${holding.holdingID}><div>${totalGainsArray[0]}</div><div>${totalGainsArray[1]}</div></td>`);
+
+const createCurrentValueEl = (holding, currentValue) => $(`<td id=current-value-${holding.holdingID}>${currentValue}</td>`);
+
+const createQuantityEl = (holding) => $(`<td id=qty-${holding.holdingID}>${holding.QTY} share(s)</td>`)
+
+const createCostBasisEl = (holding, cb) => (`<td id=cost-basis-${holding.holdingID}>${cb}</td>`);
+
+const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr id=tr-${holding.holdingID}><tr>`);
+
+const createHoldingsTableEl = (table, id, portfolio) => {
+  let holdings = getHoldings(id, portfolio);
+  let previousPrice = 199; // data comes from API
+  let currentPrice = 200; // data comes from API
+  let accountTotals = {
+    dailyGainLoss: 0,
+    totalGainLoss: 0,
+    currentValue: 0
+  }
+
+  for (let i=0; i < holdings.length; i++) {
+    createNewTableRow(holdings[i], table);
+
+    const dailyGainLoss = calculateGainsLosses(previousPrice, currentPrice, holdings[i].QTY);
+    const totalGainLoss = calculateGainsLosses(holdings[i].purchasePrice, currentPrice, holdings[i].QTY)
+    const currentValue = currentPrice * holdings[i].QTY;
+    const costBasis = holdings[i].QTY * holdings[i].purchasePrice;
+
+    const fDailyGainLoss = formatNumbers(dailyGainLoss);
+    const fTotalGainLoss = formatNumbers(totalGainLoss);
+    const fCurrentValue = '$' + (currentValue).toLocaleString();
+    const fCostBasis = '$' + (costBasis).toLocaleString();
+    
+    $(table).children(`#tr-${holdings[i].holdingID}`).append(createSymbolEl(holdings[i]));
+    $(table).children(`#tr-${holdings[i].holdingID}`).append(createLastPriceEl(holdings[i], currentPrice));
+    $(table).children(`#tr-${holdings[i].holdingID}`).append(createDailyGainLossEl(holdings[i], fDailyGainLoss));
+    $(table).children(`#tr-${holdings[i].holdingID}`).append(createTotalGainLossEl(holdings[i], fTotalGainLoss));
+    $(table).children(`#tr-${holdings[i].holdingID}`).append(createCurrentValueEl(holdings[i], fCurrentValue));
+    $(table).children(`#tr-${holdings[i].holdingID}`).append(createQuantityEl(holdings[i]));
+    $(table).children(`#tr-${holdings[i].holdingID}`).append(createCostBasisEl(holdings[i], fCostBasis));
+    
+    console.log(`Holding: ${holdings[i].holdingID} Current Price: $${currentPrice} Previous Price: $${previousPrice} QTY: ${holdings[i].QTY} Purchase Price: $${holdings[i].purchasePrice}`);
+    
+    accountTotals.dailyGainLoss += dailyGainLoss[0];
+    accountTotals.totalGainLoss += totalGainLoss[0];
+    accountTotals.currentValue += currentValue;
+  }
+
+  $(`#daily-gain-loss-total`).text(`$${accountTotals.dailyGainLoss.toLocaleString()}`);
+  $(`#total-gain-loss-total`).text(`$${accountTotals.totalGainLoss.toLocaleString()}`);
+  $(`#current-value-total`).text(`$${accountTotals.currentValue.toLocaleString()}`);
+}
+
+
+// end of Rodin's code -------------------------------------------->
+
+function init() {    
+  displayPortfolio();
+  buttonAddSymbolEl.hide();
+}
+
+init();
