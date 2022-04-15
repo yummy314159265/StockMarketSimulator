@@ -4,7 +4,6 @@ import { init_search } from './search.js';
 
 // load HTML before performing doing functions
 const loadHTML = (...funcs) => {
-    console.log('hj')
     $('#navbar-container').load('navbar.html', () => {
         $('#footer-container').load('footer.html', () => {
             $('#modal-container').load('modals.html', () => {
