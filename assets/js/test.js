@@ -24,8 +24,9 @@ var currvalue;
 
 
 var holdings = JSON.parse(localStorage.getItem("holdings") || "[]");
+var currentuser=JSON.parse(sessionStorage.getItem("userid") || "");
 function storeTrade(){
-    holdings.push({id: holdings.length, symbol: symbol.val(), costbasis: costbasis, lastprice: lastprice, quantity: quantity, currvalue: currvalue, });
+    holdings.push({holdingsid: holdings.length, userId: currentuser,  symbol: symbol.val(), costbasis: costbasis, lastprice: lastprice, quantity: quantity, currvalue: currvalue, });
     localStorage.setItem("holdings", JSON.stringify(holdings));
 }
 
@@ -47,6 +48,8 @@ submit.on('submit',function(){
 )
   
 })
+
+console.log(costbasis)
 
 // function pagerefresh(){
 // for(let i=0; i<holdings.length;i++){
