@@ -13,7 +13,6 @@ var select = $('#trade-action');
 var quant = $('#stock-qty')
 var submit = $('#form-create-symbol')
 
-console.log(option)
 
 var costbasis;
 var lastprice;
@@ -49,7 +48,6 @@ submit.on('submit',function(){
   
 })
 
-console.log(costbasis)
 
 // function pagerefresh(){
 // for(let i=0; i<holdings.length;i++){
@@ -58,4 +56,8 @@ console.log(costbasis)
 // }
 
 // pagerefresh();
+
+
+
+
 

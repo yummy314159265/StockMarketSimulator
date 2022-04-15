@@ -39,7 +39,7 @@ function quickFix() {
 
 
     const defaultlogin=false;
-    var users = JSON.parse(sessionStorage.getItem("users") || "[]");
+    var users = JSON.parse(localStorage.getItem("users") || "[]");
     var loggedin = JSON.parse(sessionStorage.getItem("loggedin") || defaultlogin)
 
     if(loggedin===false)
@@ -102,14 +102,12 @@ function quickFix() {
     //login functionality
     function verifyUser(name,pass){
         for(let i=0;i<users.length;i++){
-            console.log(name, pass, users[i].username, users[i].password)
             if(name===users[i].username && pass===users[i].password){
-                localStorage.setItem("userid",JSON.stringify(users[i].id));
+                sessionStorage.setItem("userid",JSON.stringify(users[i].id));
                 console.log('found you!')
                 return true;
             }
         }
-
         alert('You are not in our database hehe')
         return false;
 
