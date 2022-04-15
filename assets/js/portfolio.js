@@ -222,7 +222,6 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
     tableRowEl.append(tableColumnEl);   
     tableEl.append(tableEl);
     // Work pending to pull data from localStorage + API
-    h1El.html("<a href='portfolio.html'>My Portfolios</a> / " + portfolioName);
     buttonCreatePortfolioEl.hide();
     buttonAddSymbolEl.show();
     showPortFolioListEl.html('');
@@ -275,10 +274,8 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
 
 // start of Rodin's code -------------------------------------------->
 
-      // createHoldingsTableEl(tableEl, getCurrentUser(), getPortfolioId());
+      createHoldingsTableEl(tableEl, 'rodin', 'stuff');
 });
-
-
 
 const getHoldings = (myId, myPortfolio) => {
   let allHoldings = JSON.parse(localStorage.getItem('holdings')) || [ //this array is for testing
@@ -292,7 +289,9 @@ const getHoldings = (myId, myPortfolio) => {
       purchaseDate: '04/13/2022',
       isSold: true,
       salePrice: 4000,
-      soldDate: '04/14/2022'
+      soldDate: '04/14/2022',
+      close: 300 ,
+      open: 200
     },
 
     {
@@ -305,7 +304,9 @@ const getHoldings = (myId, myPortfolio) => {
       purchaseDate: '03/13/2022',
       isSold: true,
       salePrice: .50,
-      soldDate: '03/20/2022'
+      soldDate: '03/20/2022',
+      close: 1000,
+      open: 900
     },
 
     {
@@ -318,7 +319,9 @@ const getHoldings = (myId, myPortfolio) => {
       purchaseDate: '04/14/2022',
       isSold: false,
       salePrice: 0,
-      soldDate: ''
+      soldDate: '',
+      close: 300,
+      open: 200
     },
 
     {
@@ -331,7 +334,39 @@ const getHoldings = (myId, myPortfolio) => {
       purchaseDate: '10/13/1990',
       isSold: true,
       salePrice: 500,
-      soldDate: '04/14/2022'
+      soldDate: '04/14/2022',
+      close: 400,
+      open: 100
+    },
+
+    {
+      userID: 'rodin',
+      portfolioID: 'stuff',
+      holdingID: 'GME-3',
+      symbol: 'GME',
+      purchasePrice: 900,
+      QTY: 100,
+      purchaseDate: '04/14/2022',
+      isSold: false,
+      salePrice: 0,
+      soldDate: '',
+      close: 300,
+      open: 200
+    },
+
+    {
+      userID: 'rodin',
+      portfolioID: 'stuff',
+      holdingID: 'APPL-1',
+      symbol: 'APPL',
+      purchasePrice: 700,
+      QTY: 400,
+      purchaseDate: '04/14/2022',
+      isSold: false,
+      salePrice: 0,
+      soldDate: '',
+      close: 300,
+      open: 200
     }
   ];
 
@@ -368,54 +403,110 @@ const calculateGainsLosses = (previousPrice, currentPrice, qty) => {
   return [gainsLosses, percentage];
 }
 
-const createSymbolEl = (holding) => $(`<td id=sym-${holding.holdingID}>${holding.symbol}</td>`);
+const getAverageValues = (allHoldings) => {
+  
+  const allSymbols = [];
+  const averageBySymbol = []
 
-const createLastPriceEl = (holding, lastPrice) => $(`<td id=last-price-${holding.holdingID}>$${lastPrice}</td>`);
+  allHoldings.forEach((holding) => {
+    if (!allSymbols.includes(holding.symbol)) {
+      allSymbols.push(holding.symbol);
+    }
+  });
 
-const createDailyGainLossEl = (holding, dailyGainsArray) => $(`<td id=daily-gain-loss-${holding.holdingID}><div>${dailyGainsArray[0]}</div><div>${dailyGainsArray[1]}</div></td>`);
+  const sortedBySymbols = [];
+  allSymbols.forEach((symbol) => {
+    sortedBySymbols.push(allHoldings.filter(holding => holding.symbol === symbol));
+  })
 
-const createTotalGainLossEl = (holding, totalGainsArray) => $(`<td id=total-gain-loss-${holding.holdingID}><div>${totalGainsArray[0]}</div><div>${totalGainsArray[1]}</div></td>`);
+  sortedBySymbols.forEach((holdings) => {
+    let numOfHoldingsBySymbol = 0;
 
-const createCurrentValueEl = (holding, currentValue) => $(`<td id=current-value-${holding.holdingID}>${currentValue}</td>`);
+    let averages = {
+      symbol: holdings[0].symbol,
+      close: holdings[0].close,
+      open: holdings[0].open,
+      dailyGL: [0, 0],
+      totalGL: [0, 0],
+      costBasisAvg: 0,
+      currentValueTotal: 0,
+      quantityTotal: 0,
+    }
 
-const createQuantityEl = (holding) => $(`<td id=qty-${holding.holdingID}>${holding.QTY} share(s)</td>`)
+    holdings.forEach((holding) => {
 
-const createCostBasisEl = (holding, cb) => (`<td id=cost-basis-${holding.holdingID}>${cb}</td>`);
+      const dailyGLArr = calculateGainsLosses(holding.open, holding.close, holding.QTY);
+      averages.dailyGL = [averages.dailyGL[0] + dailyGLArr[0], averages.dailyGL[1] + dailyGLArr[1]];
 
-const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr id=tr-${holding.holdingID}><tr>`);
+      const totalGLArr = calculateGainsLosses(holding.purchasePrice, holding.close, holding.QTY);
+      averages.totalGL = [averages.totalGL[0] + totalGLArr[0], averages.totalGL[1] + totalGLArr[1]];
 
-const createHoldingsTableEl = (table, id, portfolio) => {
-  let holdings = getHoldings(id, portfolio);
-  let previousPrice = 199; // data comes from API
-  let currentPrice = 200; // data comes from API
+      averages.costBasisAvg += holding.purchasePrice * holding.QTY;
+      averages.currentValueTotal += holding.close * holding.QTY;
+      averages.quantityTotal = averages.quantityTotal + holding.QTY;
+      numOfHoldingsBySymbol += 1;
+    })
+
+    console.log(averages.quantityTotal)
+
+    averages.dailyGL = [averages.dailyGL[0]/numOfHoldingsBySymbol, averages.dailyGL[1]/numOfHoldingsBySymbol];
+    averages.totalGL = [averages.totalGL[0]/numOfHoldingsBySymbol, averages.totalGL[1]/numOfHoldingsBySymbol];
+    averages.costBasisAvg /= numOfHoldingsBySymbol;
+    averageBySymbol.push(averages);
+  })
+
+  return averageBySymbol;  
+}
+
+const createSymbolEl = (holding) => $(`<td id=sym-${holding.symbol}>${holding.symbol}</td>`);
+
+const createLastPriceEl = (holding, lastPrice) => $(`<td id=last-price-${holding.symbol}>$${lastPrice}</td>`);
+
+const createDailyGainLossEl = (holding, dailyGainsArray) => $(`<td id=daily-gain-loss-${holding.symbol}><div>${dailyGainsArray[0]}</div><div>${dailyGainsArray[1]}</div></td>`);
+
+const createTotalGainLossEl = (holding, totalGainsArray) => $(`<td id=total-gain-loss-${holding.symbol}><div>${totalGainsArray[0]}</div><div>${totalGainsArray[1]}</div></td>`);
+
+const createCurrentValueEl = (holding, currentValue) => $(`<td id=current-value-${holding.symbol}>${currentValue}</td>`);
+
+const createQuantityEl = (holding) => $(`<td id=qty-${holding.symbol}>${holding.quantityTotal} share(s)</td>`)
+
+const createCostBasisEl = (holding, cb) => (`<td id=cost-basis-${holding.symbol}>${cb}</td>`);
+
+const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr id=tr-${holding.symbol}><tr>`);
+
+const createHoldingsTableEl = (table, userId, portfolioId) => {
+  const holdings = getHoldings(userId, portfolioId);
+  const averagedHoldings = getAverageValues(holdings);
+
+
   let accountTotals = {
     dailyGainLoss: 0,
     totalGainLoss: 0,
     currentValue: 0
   }
 
-  for (let i=0; i < holdings.length; i++) {
-    createNewTableRow(holdings[i], table);
+  for (let i=0; i < averagedHoldings.length; i++) {
+    createNewTableRow(averagedHoldings[i], table);
 
-    const dailyGainLoss = calculateGainsLosses(previousPrice, currentPrice, holdings[i].QTY);
-    const totalGainLoss = calculateGainsLosses(holdings[i].purchasePrice, currentPrice, holdings[i].QTY)
-    const currentValue = currentPrice * holdings[i].QTY;
-    const costBasis = holdings[i].QTY * holdings[i].purchasePrice;
+    const dailyGainLoss = averagedHoldings[i].dailyGL;
+    const totalGainLoss = averagedHoldings[i].totalGL;
+    const currentValue = averagedHoldings[i].currentValueTotal;
+    const costBasis = averagedHoldings[i].costBasisAvg;
 
     const fDailyGainLoss = formatNumbers(dailyGainLoss);
     const fTotalGainLoss = formatNumbers(totalGainLoss);
     const fCurrentValue = '$' + (currentValue).toLocaleString();
     const fCostBasis = '$' + (costBasis).toLocaleString();
     
-    $(table).children(`#tr-${holdings[i].holdingID}`).append(createSymbolEl(holdings[i]));
-    $(table).children(`#tr-${holdings[i].holdingID}`).append(createLastPriceEl(holdings[i], currentPrice));
-    $(table).children(`#tr-${holdings[i].holdingID}`).append(createDailyGainLossEl(holdings[i], fDailyGainLoss));
-    $(table).children(`#tr-${holdings[i].holdingID}`).append(createTotalGainLossEl(holdings[i], fTotalGainLoss));
-    $(table).children(`#tr-${holdings[i].holdingID}`).append(createCurrentValueEl(holdings[i], fCurrentValue));
-    $(table).children(`#tr-${holdings[i].holdingID}`).append(createQuantityEl(holdings[i]));
-    $(table).children(`#tr-${holdings[i].holdingID}`).append(createCostBasisEl(holdings[i], fCostBasis));
+    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createSymbolEl(averagedHoldings[i]));
+    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createLastPriceEl(averagedHoldings[i], averagedHoldings[i].close));
+    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createDailyGainLossEl(averagedHoldings[i], fDailyGainLoss));
+    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createTotalGainLossEl(averagedHoldings[i], fTotalGainLoss));
+    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createCurrentValueEl(averagedHoldings[i], fCurrentValue));
+    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createQuantityEl(averagedHoldings[i]));
+    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createCostBasisEl(averagedHoldings[i], fCostBasis));
     
-    console.log(`Holding: ${holdings[i].holdingID} Current Price: $${currentPrice} Previous Price: $${previousPrice} QTY: ${holdings[i].QTY} Purchase Price: $${holdings[i].purchasePrice}`);
+    console.log(`Holding: ${averagedHoldings[i].symbol} Current Price: $${averagedHoldings[i].close} Previous Price: $${averagedHoldings[i].open} QTY: ${averagedHoldings[i].quantityTotal} Cost Basis Avg: $${averagedHoldings[i].costBasisAvg}`);
     
     accountTotals.dailyGainLoss += dailyGainLoss[0];
     accountTotals.totalGainLoss += totalGainLoss[0];
