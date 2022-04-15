@@ -222,9 +222,10 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
     tableRowEl.append(tableColumnEl);   
     tableEl.append(tableEl);
     // Work pending to pull data from localStorage + API
-
-  
-
+    h1El.html("<a href='portfolio.html'>My Portfolios</a> / " + portfolioName);
+    buttonCreatePortfolioEl.hide();
+    buttonAddSymbolEl.show();
+    showPortFolioListEl.html('');
 
     // table footer summary
       // Create Table Row
@@ -272,12 +273,12 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
       // Append complte table to Show
       showPortFolioListEl.append(tableEl);
 
-      // add portfolio data
-      createHoldingsTableEl(tableEl, 'rodin', 'stuff');
+// start of Rodin's code -------------------------------------------->
 
+      // createHoldingsTableEl(tableEl, getCurrentUser(), getPortfolioId());
 });
 
-// Rodin's code -------------------------------------------->
+
 
 const getHoldings = (myId, myPortfolio) => {
   let allHoldings = JSON.parse(localStorage.getItem('holdings')) || [ //this array is for testing
