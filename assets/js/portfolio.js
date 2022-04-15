@@ -222,7 +222,6 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
     tableRowEl.append(tableColumnEl);   
     tableEl.append(tableEl);
     // Work pending to pull data from localStorage + API
-    h1El.html("<a href='portfolio.html'>My Portfolios</a> / " + portfolioName);
     buttonCreatePortfolioEl.hide();
     buttonAddSymbolEl.show();
     showPortFolioListEl.html('');
