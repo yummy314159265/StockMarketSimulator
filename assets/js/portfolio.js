@@ -10,7 +10,7 @@ var modelCreatePortfolioEl = $('#modal-create-portfolio');
 var buttonCreatePortfolioEl = $('#btn-create-protfolio');
 var buttonAddSymbolEl = $('#btn-add-symbol');
 var h1El = $('h1');
-const userId = JSON.parse(sessionStorage.getItem('loggedin')).user;
+const userId = JSON.parse(sessionStorage.getItem('loggedin')).user || '';
 // LocalStorage dbuserportfolio will hold userid, portfolioname, and investmentamount
 
 // Following are functions/calls for My Portfolios - List Page
@@ -232,7 +232,6 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
     tableRowEl.append(tableColumnEl);   
     tableEl.append(tableEl);
     // Work pending to pull data from localStorage + API
-    // h1El.html("<a href='portfolio.html'>My Portfolios</a> / " + portfolioName);
     buttonCreatePortfolioEl.hide();
     buttonAddSymbolEl.show();
     showPortFolioListEl.html('');
@@ -384,7 +383,7 @@ const getHoldings = (myId, myPortfolio) => {
   let myHoldings = []
 
   for (let i = 0; i < allHoldings.length; i++) {
-    if (allHoldings[i].userID === myId && allHoldings[i].portfolioID === myPortfolio) {
+    if (allHoldings[i].userID === myId && allHoldings[i].portfolioId === myPortfolio) {
       myHoldings.push(allHoldings[i]);
     }
   }
@@ -486,7 +485,6 @@ const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr id=tr-${holdi
 
 const createHoldingsTableEl = (table, userId, portfolioId) => {
   const holdings = getHoldings(userId, portfolioId);
-  console.log(userId, portfolioId)
   const averagedHoldings = getAverageValues(holdings);
 
   let accountTotals = {
