@@ -23,9 +23,16 @@ const modalHandler = () => {
 
     (modalTriggers || []).each((i) => {
         const modal = $(modalTriggers[i]).data('target');
-        const target = $(`#${modal}`);
-        
+
+        let target = $(`#${modal}`);      
         $(modalTriggers[i]).on('click', () => {
+
+            if (target.is($('#modal-create-portfolio'))) {
+                if (!JSON.parse(sessionStorage.getItem('loggedin')).user) {
+                    target = $('#modal-please-log-in');
+                }
+            }
+
             openModal(target);
         })
     });

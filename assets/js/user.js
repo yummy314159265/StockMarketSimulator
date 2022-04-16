@@ -17,8 +17,6 @@ function quickFix() {
         return /\d/.test(myString);
     }
     
-
-
     var username=$('#username');
     var password=$('#password');
     var passwordcheck=$('#confirm-password');
@@ -38,13 +36,21 @@ function quickFix() {
 
 
 
-    const defaultlogin=false;
-    var users = JSON.parse(localStorage.getItem("users") || "[]");
-    var loggedin = JSON.parse(sessionStorage.getItem("loggedin") || defaultlogin)
+    const defaultlogin= {
+        status: false,
+        user: ''
+    }
 
-    if(loggedin===false)
-    logoutbutton.hide();
-    
+    var users = JSON.parse(localStorage.getItem("users") || "[]");
+    var loggedin = JSON.parse(sessionStorage.getItem("loggedin")) || defaultlogin
+
+    if(loggedin.status===false){
+        logoutbutton.hide();
+    } else {
+        loginbutton.hide();
+        signupbutton.hide();
+    }
+
     //no duplicate usernames
     function checkRepeat(name){
         for(let i=0;i<users.length;i++){
@@ -102,13 +108,12 @@ function quickFix() {
     //login functionality
     function verifyUser(name,pass){
         for(let i=0;i<users.length;i++){
-            console.log(name, pass, users[i].username, users[i].password)
             if(name===users[i].username && pass===users[i].password){
+                sessionStorage.setItem("userid",JSON.stringify(users[i].id));
                 console.log('found you!')
                 return true;
             }
         }
-
         alert('You are not in our database hehe')
         return false;
 
@@ -141,13 +146,14 @@ function quickFix() {
         login.on('click',function(){
             event.preventDefault();
             console.log(loggedin)
-            if(loggedin===false){
+            if(loggedin.status===false){
             if(verifyUser(loginuser.val(),loginpass.val())){
-                loggedin=true;
+                loggedin = {
+                    status: true,
+                    user: loginuser.val()
+                }
                 sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
-                logoutbutton.show();
-                loginbutton.hide();
-                signupbutton.hide();
+                location.reload();
             }
             else{
                 alert("login failed")
@@ -165,12 +171,11 @@ function quickFix() {
             console.log(loginbutton)
             console.log(logoutbutton)
             console.log(signupbutton)
-            loggedin=false;
+            loggedin.status=false;
+            loggedin.user='';
             sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
-            loginbutton.show()
-            logoutbutton.hide()
-            signupbutton.show()
             console.log("logout")
+            location.reload();
         })
     }
 
@@ -184,7 +189,9 @@ function quickFix() {
 }
 
 
+const getUser = () => JSON.parse(sessionStorage.getItem('loggedin')).user || '';
+
 quickFix();
 
 
-export { quickFix }
+export { quickFix, getUser }
