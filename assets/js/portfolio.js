@@ -11,7 +11,7 @@ var modelCreatePortfolioEl = $('#modal-create-portfolio');
 var buttonCreatePortfolioEl = $('#btn-create-protfolio');
 var buttonAddSymbolEl = $('#btn-add-symbol');
 var h1El = $('h1');
-var userId = 1; // change from session object later
+
 
 // LocalStorage dbuserportfolio will hold userid, portfolioname, and investmentamount
 
@@ -23,6 +23,9 @@ var userId = 1; // change from session object later
 // 4. deletePortfolio will listen for user request to delete exisiting portfolio
 
 // Render portfolio from localStorage in table format
+
+const getUser = () => JSON.parse(sessionStorage.getItem('loggedin')).user || '';
+
 function displayPortfolio()
 {  
   showPortFolioListEl.text(''); 
@@ -243,11 +246,11 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
       tableColumnEl.text('-'); // leave blank
       tableRowEl.append(tableColumnEl);   
 
-      var tableColumnEl = $('<th id=daily-gain-loss-total>');
+      var tableColumnEl = $('<th id=daily-gain-loss-total></th>');
       tableColumnEl.text(""); // Show Today's Gain/Loss here
       tableRowEl.append(tableColumnEl);   
 
-      var tableColumnEl = $('<th id=total-gain-loss-total>');
+      var tableColumnEl = $('<th id=total-gain-loss-total></th>');
       tableColumnEl.text(''); // Show Total Gain/Loss here
       tableRowEl.append(tableColumnEl);   
 
@@ -382,15 +385,19 @@ const getHoldings = (myId, myPortfolio) => {
   return myHoldings;
 }
 
+const numToTwoDec = (num) => Math.round(num * 100)/100
+
 const formatNumbers = (numArr) => {
+  const num = numToTwoDec(numArr[0]);
+  const percentage = numToTwoDec(numArr[1]);
   let formattedNum = '';
-  let formattedPercentage = numArr[1].toLocaleString() + '%';
+  let formattedPercentage = percentage.toLocaleString() + '%';
 
   if (numArr[0] >= 0) {
-    formattedNum = '+$' + numArr[0].toLocaleString();
+    formattedNum = '+$' + num.toLocaleString();
     formattedPercentage = '+' + formattedPercentage;
   } else {
-    formattedNum = '-$' + (Math.abs(numArr[0])).toLocaleString();
+    formattedNum = '-$' + (Math.abs(num)).toLocaleString();
   }
 
   return [formattedNum, formattedPercentage];
@@ -398,16 +405,15 @@ const formatNumbers = (numArr) => {
 
 const calculateGainsLosses = (previousPrice, currentPrice, qty) => {
   let gainsLosses = (qty*currentPrice)-(qty*previousPrice);
-  // calulating percentage to 2 decimal places
-  let percentage = Math.round(gainsLosses/(qty*previousPrice) * 10000)/100;
-
+  let percentage = gainsLosses/(qty*previousPrice) * 100;
   return [gainsLosses, percentage];
 }
 
 const getAverageValues = (allHoldings) => {
   
   const allSymbols = [];
-  const averageBySymbol = []
+  const averageBySymbol = [];
+  const sortedBySymbols = [];
 
   allHoldings.forEach((holding) => {
     if (!allSymbols.includes(holding.symbol)) {
@@ -415,13 +421,12 @@ const getAverageValues = (allHoldings) => {
     }
   });
 
-  const sortedBySymbols = [];
+  
   allSymbols.forEach((symbol) => {
     sortedBySymbols.push(allHoldings.filter(holding => holding.symbol === symbol));
-  })
+  });
 
   sortedBySymbols.forEach((holdings) => {
-    let numOfHoldingsBySymbol = 0;
 
     let averages = {
       symbol: holdings[0].symbol,
@@ -445,16 +450,13 @@ const getAverageValues = (allHoldings) => {
       averages.costBasisAvg += holding.purchasePrice * holding.QTY;
       averages.currentValueTotal += holding.close * holding.QTY;
       averages.quantityTotal = averages.quantityTotal + holding.QTY;
-      numOfHoldingsBySymbol += 1;
-    })
+    });
 
-    console.log(averages.quantityTotal)
-
-    averages.dailyGL = [averages.dailyGL[0]/numOfHoldingsBySymbol, averages.dailyGL[1]/numOfHoldingsBySymbol];
-    averages.totalGL = [averages.totalGL[0]/numOfHoldingsBySymbol, averages.totalGL[1]/numOfHoldingsBySymbol];
-    averages.costBasisAvg /= numOfHoldingsBySymbol;
+    averages.dailyGL = [averages.dailyGL[0]/holdings.length, averages.dailyGL[1]/holdings.length];
+    averages.totalGL = [averages.totalGL[0]/holdings.length, averages.totalGL[1]/holdings.length];
+    averages.costBasisAvg /= holdings.length;
     averageBySymbol.push(averages);
-  })
+  });
 
   return averageBySymbol;  
 }
@@ -479,16 +481,16 @@ const createHoldingsTableEl = (table, userId, portfolioId) => {
   const holdings = getHoldings(userId, portfolioId);
   const averagedHoldings = getAverageValues(holdings);
 
-
   let accountTotals = {
     dailyGainLoss: 0,
+    dailyGainLossP: 0,
     totalGainLoss: 0,
+    totalGainLossP: 0,
     currentValue: 0
   }
 
   for (let i=0; i < averagedHoldings.length; i++) {
     createNewTableRow(averagedHoldings[i], table);
-
     const dailyGainLoss = averagedHoldings[i].dailyGL;
     const totalGainLoss = averagedHoldings[i].totalGL;
     const currentValue = averagedHoldings[i].currentValueTotal;
@@ -496,8 +498,8 @@ const createHoldingsTableEl = (table, userId, portfolioId) => {
 
     const fDailyGainLoss = formatNumbers(dailyGainLoss);
     const fTotalGainLoss = formatNumbers(totalGainLoss);
-    const fCurrentValue = '$' + (currentValue).toLocaleString();
-    const fCostBasis = '$' + (costBasis).toLocaleString();
+    const fCurrentValue = '$' + (numToTwoDec(currentValue)).toLocaleString();
+    const fCostBasis = '$' + (numToTwoDec(costBasis)).toLocaleString();
     
     $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createSymbolEl(averagedHoldings[i]));
     $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createLastPriceEl(averagedHoldings[i], averagedHoldings[i].close));
@@ -510,12 +512,18 @@ const createHoldingsTableEl = (table, userId, portfolioId) => {
     console.log(`Holding: ${averagedHoldings[i].symbol} Current Price: $${averagedHoldings[i].close} Previous Price: $${averagedHoldings[i].open} QTY: ${averagedHoldings[i].quantityTotal} Cost Basis Avg: $${averagedHoldings[i].costBasisAvg}`);
     
     accountTotals.dailyGainLoss += dailyGainLoss[0];
+    accountTotals.dailyGainLossP += dailyGainLoss[1];
     accountTotals.totalGainLoss += totalGainLoss[0];
+    accountTotals.totalGainLossP += totalGainLoss[1];
     accountTotals.currentValue += currentValue;
   }
 
-  $(`#daily-gain-loss-total`).text(`$${accountTotals.dailyGainLoss.toLocaleString()}`);
-  $(`#total-gain-loss-total`).text(`$${accountTotals.totalGainLoss.toLocaleString()}`);
+  const fAccTotalsDGL = formatNumbers([accountTotals.dailyGainLoss, accountTotals.dailyGainLossP]); 
+  const fAccTotalsTGL = formatNumbers([accountTotals.totalGainLoss, accountTotals.totalGainLossP]);
+  accountTotals.currentValue = numToTwoDec(accountTotals.currentValue);
+
+  $(`#daily-gain-loss-total`).text(`${fAccTotalsDGL[0]} (${fAccTotalsDGL[1]})`);
+  $(`#total-gain-loss-total`).text(`${fAccTotalsTGL[0]} (${fAccTotalsTGL[1]})`);
   $(`#current-value-total`).text(`$${accountTotals.currentValue.toLocaleString()}`);
 }
 
@@ -525,6 +533,7 @@ const createHoldingsTableEl = (table, userId, portfolioId) => {
 function init() {    
   displayPortfolio();
   buttonAddSymbolEl.hide();
+  console.log(getUser());
 }
 
 init();
