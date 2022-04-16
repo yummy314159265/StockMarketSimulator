@@ -34,8 +34,6 @@ function quickFix() {
 
     var loginModal = $('#login-container')
 
-
-
     const defaultlogin= {
         status: false,
         user: ''
@@ -46,6 +44,7 @@ function quickFix() {
 
     if(loggedin.status===false){
         logoutbutton.hide();
+        sessionStorage.setItem('loggedin', JSON.stringify(loggedin));
     } else {
         loginbutton.hide();
         signupbutton.hide();
@@ -188,10 +187,7 @@ function quickFix() {
     init_user();
 }
 
-
-const getUser = () => JSON.parse(sessionStorage.getItem('loggedin')).user || '';
-
 quickFix();
 
 
-export { quickFix, getUser }
+export { quickFix }
