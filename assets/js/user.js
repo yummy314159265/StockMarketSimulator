@@ -38,13 +38,21 @@ function quickFix() {
 
 
 
-    const defaultlogin=false;
-    var users = JSON.parse(localStorage.getItem("users") || "[]");
-    var loggedin = JSON.parse(sessionStorage.getItem("loggedin") || defaultlogin)
+    const defaultlogin= {
+        status: false,
+        user: ''
+    }
 
-    if(loggedin===false)
-    logoutbutton.hide();
-    
+    var users = JSON.parse(localStorage.getItem("users") || "[]");
+    var loggedin = JSON.parse(sessionStorage.getItem("loggedin")) || defaultlogin
+
+    if(loggedin.status===false){
+        logoutbutton.hide();
+    } else {
+        loginbutton.hide();
+        signupbutton.hide();
+    }
+
     //no duplicate usernames
     function checkRepeat(name){
         for(let i=0;i<users.length;i++){
@@ -141,9 +149,12 @@ function quickFix() {
         login.on('click',function(){
             event.preventDefault();
             console.log(loggedin)
-            if(loggedin===false){
+            if(loggedin.status===false){
             if(verifyUser(loginuser.val(),loginpass.val())){
-                loggedin=true;
+                loggedin = {
+                    status: true,
+                    user: loginuser.val()
+                }
                 sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
                 logoutbutton.show();
                 loginbutton.hide();
@@ -165,7 +176,8 @@ function quickFix() {
             console.log(loginbutton)
             console.log(logoutbutton)
             console.log(signupbutton)
-            loggedin=false;
+            loggedin.status=false;
+            loggedin.user='';
             sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
             loginbutton.show()
             logoutbutton.hide()
