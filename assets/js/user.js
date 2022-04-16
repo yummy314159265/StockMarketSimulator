@@ -17,8 +17,6 @@ function quickFix() {
         return /\d/.test(myString);
     }
     
-
-
     var username=$('#username');
     var password=$('#password');
     var passwordcheck=$('#confirm-password');
@@ -156,9 +154,7 @@ function quickFix() {
                     user: loginuser.val()
                 }
                 sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
-                logoutbutton.show();
-                loginbutton.hide();
-                signupbutton.hide();
+                location.reload();
             }
             else{
                 alert("login failed")
@@ -179,10 +175,8 @@ function quickFix() {
             loggedin.status=false;
             loggedin.user='';
             sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
-            loginbutton.show()
-            logoutbutton.hide()
-            signupbutton.show()
             console.log("logout")
+            location.reload();
         })
     }
 
@@ -196,7 +190,9 @@ function quickFix() {
 }
 
 
+const getUser = () => JSON.parse(sessionStorage.getItem('loggedin')).user || '';
+
 quickFix();
 
 
-export { quickFix }
+export { quickFix, getUser }

@@ -1,5 +1,5 @@
 import { init_modals } from './modals.js';
-import { quickFix } from './user.js';
+import { quickFix, getUser } from './user.js';
 import { init_search } from './search.js';
 
 // load HTML before performing doing functions
