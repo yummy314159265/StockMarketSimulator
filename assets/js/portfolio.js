@@ -3,7 +3,6 @@ var formCreatePortfolio = $('#form-create-portfolio');
 var namePortfolioEl = $('#portfolio-name');
 var investmentAmountEl = $('#investment-amount');
 var errorMessageEl = $('#error-message');
-var errorMessageEl = $('#error-message');
 var showPortFolioListEl = $('#show-portfolio-list');
 var modelCreatePortfolioEl = $('#modal-create-portfolio');
 
@@ -11,8 +10,7 @@ var modelCreatePortfolioEl = $('#modal-create-portfolio');
 var buttonCreatePortfolioEl = $('#btn-create-protfolio');
 var buttonAddSymbolEl = $('#btn-add-symbol');
 var h1El = $('h1');
-
-
+const userId = JSON.parse(sessionStorage.getItem('loggedin')).user;
 // LocalStorage dbuserportfolio will hold userid, portfolioname, and investmentamount
 
 // Following are functions/calls for My Portfolios - List Page
@@ -23,13 +21,9 @@ var h1El = $('h1');
 // 4. deletePortfolio will listen for user request to delete exisiting portfolio
 
 // Render portfolio from localStorage in table format
-
-const getUser = () => JSON.parse(sessionStorage.getItem('loggedin')).user || '';
-
-function displayPortfolio()
-{  
+function displayPortfolio() {  
   showPortFolioListEl.text(''); 
-  var dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio"));         
+  var dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio")) || [];  
    // Create Table
    var tableEl = $('<table>');
    tableEl.attr('class', 'table table is-fullwidth');
@@ -68,64 +62,74 @@ function displayPortfolio()
   // to format number to amount    
   let dollarUSLocale = Intl.NumberFormat('en-US');
 
-  
-  for(var i=0; i<dbuserportfolio.length; i++)
-  {        
+  if(!userId){
+    $('#modal-please-log-in').addClass('is-active');
+    $('html').addClass('is-clipped');
+    return;
+  }
 
-   var tableRowEl = $('<tr>');
-   tableBodyEl.append(tableRowEl);
+  for(var i=0; i<dbuserportfolio.length; i++) {      
+    if(dbuserportfolio[i].userid === userId) {
+      var tableRowEl = $('<tr>');
+      tableBodyEl.append(tableRowEl);
 
-   // Create Table Column
-   // 1st column showing portfolio name
-   var tableColumnEl = $('<td>');
-   tableColumnEl.text(dbuserportfolio[i].portfolioname);     
-   tableColumnEl.css('text-decoration', 'underline');
-   tableColumnEl.css('cursor', 'pointer');
-   tableColumnEl.css('color', 'blue');
-   tableColumnEl.attr('class', 'portfoliolink');
-   tableBodyEl.append(tableColumnEl);   
-   
-   // 2nd column showing total symbols portfolio have
-   var tableColumnEl = $('<td>');
-   tableColumnEl.text();  //  add total symbols from other object
-   tableBodyEl.append(tableColumnEl);   
+      // Create Table Column
+      // 1st column showing portfolio name
+      var tableColumnEl = $('<td>');
+      tableColumnEl.text(dbuserportfolio[i].portfolioname);     
+      tableColumnEl.css('text-decoration', 'underline');
+      tableColumnEl.css('cursor', 'pointer');
+      tableColumnEl.css('color', 'blue');
+      tableColumnEl.attr('class', 'portfoliolink');
+      tableBodyEl.append(tableColumnEl);   
+      
+      // 2nd column showing total symbols portfolio have
+      var tableColumnEl = $('<td>');
+      tableColumnEl.text();  //  add total symbols from other object
+      tableBodyEl.append(tableColumnEl);   
 
-   // 3rd column showing total investments
-   var tableColumnEl = $('<td>');
-   tableColumnEl.text("$" + dollarUSLocale.format(dbuserportfolio[i].investmentamount));
-   tableBodyEl.append(tableColumnEl);   
+      // 3rd column showing total investments
+      var tableColumnEl = $('<td>');
+      tableColumnEl.text("$" + dollarUSLocale.format(dbuserportfolio[i].investmentamount));
+      tableBodyEl.append(tableColumnEl);   
 
-   // 4th column calculate current market value for total investment
-   var tableColumnEl = $('<td>');
-   tableColumnEl.text();
-   tableBodyEl.append(tableColumnEl);   
-   
-   // 5th column calculate profit/loss from diffrence between current market value and total investment
-   var tableColumnEl = $('<td>');
-   tableColumnEl.text('');
-   tableBodyEl.append(tableColumnEl);        
+      // 4th column calculate current market value for total investment
+      var tableColumnEl = $('<td>');
+      tableColumnEl.text();
+      tableBodyEl.append(tableColumnEl);   
+      
+      // 5th column calculate profit/loss from diffrence between current market value and total investment
+      var tableColumnEl = $('<td>');
+      tableColumnEl.text('');
+      tableBodyEl.append(tableColumnEl);        
 
-    // 6th column Delete icon
-    var tableColumnEl = $('<td>');
-    var faIconEl = "<i id=" + i +" class='fa fa-remove fa-hand-pointer fa-2xl'></i>";      
-    tableColumnEl.html(faIconEl);
-    //tableColumnEl.append(faIconEl);  
-    
-    tableBodyEl.append(tableColumnEl);  
+        // 6th column Delete icon
+        var tableColumnEl = $('<td>');
+        var faIconEl = "<i id=" + i +" class='fa fa-remove fa-hand-pointer fa-2xl'></i>";      
+        tableColumnEl.html(faIconEl);
+        //tableColumnEl.append(faIconEl);  
+        
+        tableBodyEl.append(tableColumnEl);  
+    }
   }  
+
   tableEl.append(tableBodyEl);
   showPortFolioListEl.append(tableEl);
+  
 }
 
 // fetch user input and save new portfolio to local storage
 var savePortfolio = function (event) {
   event.preventDefault();
-  var namePortfolio = namePortfolioEl.val();
+  var namePortfolio = namePortfolioEl.val().trim();
   var investmentAmount = investmentAmountEl.val();
+  var dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio") || "[]");
 
-  if (!namePortfolio || !investmentAmount) {
-    errorMessageEl.text("Please enter required fields!")        
-    return;
+  for (let i = 0; i < dbuserportfolio.length; i++) {
+    if (dbuserportfolio[i].portfolioname === namePortfolio && dbuserportfolio[i].userid === userId) {
+      errorMessageEl.text("Please use a unique name for your portfolio");
+      return;
+    }
   }
 
   var portfolioObject = {
@@ -134,7 +138,6 @@ var savePortfolio = function (event) {
       investmentamount: investmentAmount
   };
 
-  dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio") || "[]");
   dbuserportfolio.push(portfolioObject);
   localStorage.setItem("dbuserportfolio", JSON.stringify(dbuserportfolio));
   
@@ -176,6 +179,10 @@ function displaySinglePortfolio(portfolioName) {
 
 // Event listener to add new portfolio
 formCreatePortfolio.on('submit', savePortfolio); 
+
+buttonCreatePortfolioEl.on('click', () => {
+  errorMessageEl.text(' ');
+})
 
 //event delegation use to remove portfolio
 showPortFolioListEl.on('click', '.fa-remove', function (event) {
@@ -278,7 +285,7 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
 
 // start of Rodin's code -------------------------------------------->
 
-      createHoldingsTableEl(tableEl, 'rodin', 'stuff');
+      createHoldingsTableEl(tableEl, userId, $(this).text());
 });
 
 const getHoldings = (myId, myPortfolio) => {
@@ -479,6 +486,7 @@ const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr id=tr-${holdi
 
 const createHoldingsTableEl = (table, userId, portfolioId) => {
   const holdings = getHoldings(userId, portfolioId);
+  console.log(userId, portfolioId)
   const averagedHoldings = getAverageValues(holdings);
 
   let accountTotals = {
@@ -530,10 +538,9 @@ const createHoldingsTableEl = (table, userId, portfolioId) => {
 
 // end of Rodin's code -------------------------------------------->
 
-function init() {    
+function init_portfolio() {    
   displayPortfolio();
   buttonAddSymbolEl.hide();
-  console.log(getUser());
 }
 
-init();
+init_portfolio()

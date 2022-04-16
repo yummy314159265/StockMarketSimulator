@@ -28,9 +28,8 @@ const modalHandler = () => {
         $(modalTriggers[i]).on('click', () => {
 
             if (target.is($('#modal-create-portfolio'))) {
-                if (!sessionStorage.getItem('loggedin').user) {
+                if (!JSON.parse(sessionStorage.getItem('loggedin')).user) {
                     target = $('#modal-please-log-in');
-
                 }
             }
 
