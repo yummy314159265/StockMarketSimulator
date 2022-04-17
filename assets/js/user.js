@@ -50,7 +50,7 @@ function quickFix() {
     function checkRepeat(name){
         for(let i=0;i<users.length;i++){
             if(name===users[i].username){
-                alert("Username already taken")
+                errorMessgeEl.text("This username is already taken. Please choose another name.")
                 return true;
             }
         }
@@ -61,22 +61,22 @@ function quickFix() {
     function checkPassword(pass1,pass2){
         if(pass1!==pass2){
             // alert("Passwords do not match");
-            errorMessgeEl.text("passwords do not match")
+            errorMessgeEl.text("Please verify and re-enter your password.")
             errorMessgeEl.show();
             return true;
         }
         if(pass1.length<6){
-        errorMessgeEl.text("password is too short! Must be 6 characters or longer")
+        errorMessgeEl.text("The password must be at least 6 characters long.")
         errorMessgeEl.show();
         return true;
         }
         if(!hasNumber(pass1)){
-            errorMessgeEl.text("password must include number and special character")
+            errorMessgeEl.text("The password must contain at least one number.")
             errorMessgeEl.show();
             return true;
         }
         if(!containsSpecialChars(pass1)){
-            errorMessgeEl.text("password must include number and special character")
+            errorMessgeEl.text("The password must contain at least one special character.")
             errorMessgeEl.show();
             return true;
         }
@@ -109,7 +109,7 @@ function quickFix() {
                 return true;
             }
         }
-        alert('You are not in our database hehe')
+        $("#error-message-login").text("Invalid username or password, please verify your credentials!");        
         return false;
 
     }
@@ -117,7 +117,11 @@ function quickFix() {
     function submitButtonHandler() {
         submitbutton.on('click',function(){
             event.preventDefault();
-        
+            if(!document.getElementById("create-account-form").checkValidity())
+            {
+            document.getElementById("create-account-form").reportValidity();
+            return false;
+            }
         console.log(terms[0].checked)
             if(checkRepeat(username.val()))
                 return;
@@ -128,11 +132,12 @@ function quickFix() {
                 return;
             console.log('passed check')
             storeUser();
-            console.log('were here')
-            alert("you have sucessfully created an account, you can now log in")
-            succesMessgeEl.text("you did it you registere")
+            console.log('were here')            
+            
+            errorMessgeEl.text('');            
             succesMessgeEl.show();
-            window.location.href="index.html";
+            $("#create-account-form").hide();
+            
             console.log(users);
         });
     }
@@ -142,12 +147,16 @@ function quickFix() {
             event.preventDefault();
             if(loggedin===false){
             if(verifyUser(loginuser.val(),loginpass.val())){
+
                 loggedin=true;
                 sessionStorage.setItem("loggedin",JSON.stringify(loggedin));
-                location.reload();
+               // location.reload();
+               location.href = 'portfolio.html';
+
             }
-            else{
-                alert("login failed")
+            else{                
+                $("#error-message-login").text("Invalid username or password, please verify your credentials!");
+                return false;
             }
                 loginModal.removeClass('is-active');
         
@@ -173,6 +182,7 @@ function quickFix() {
         submitButtonHandler();
         loginButtonHandler();
         logoutButtonHandler();
+        succesMessgeEl.hide(); // hide
     }
 
     init_user();
