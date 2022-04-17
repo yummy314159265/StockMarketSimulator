@@ -33,7 +33,7 @@ const modalHandler = () => {
 
 const closeModalHandler = () => {
 
-    const closeTriggers = $('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button, #trade-submit');
+    const closeTriggers = $('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button');
 
     (closeTriggers || []).each((i) => {
         const target = closeTriggers[i].closest('.modal');
