@@ -24,7 +24,7 @@ var holdings = JSON.parse(localStorage.getItem("holdings") || "[]");
 var currentuser=JSON.parse(sessionStorage.getItem("userid") || "");
 // var currentportfolio=JSON.parse(sessionStorage.getItem("portfolioid") || "");
 var buysellhistory = JSON.parse(localStorage.getItem("buysellhistory")|| "[]");
-localStorage.setItem("portfolioid", JSON.stringify(0));
+localStorage.setItem("portfolioid", JSON.stringify(0))
 //  var currentportfolio=JSON.parse(sessionStorage.getItem("portfolioid") || "");
 console.log(select[0].options[select[0].selectedIndex].value)
 function storeTrade(){
@@ -77,7 +77,7 @@ submit.on('submit',function(){
             lastprice=data.results[0].c
             today=data.results[0].c-data.results[0].o;
             total=costbasis-lastprice;
-            quantity=quant[0].value;
+            quantity=parseInt(quant[0].value);
             currvalue=lastprice*quantity;
              console.log(lastprice,today,total,currvalue,quantity,costbasis);
              sell(symbol.val(),quantity)
@@ -93,6 +93,7 @@ submit.on('submit',function(){
 function sell(symbol,amt){
 for(let i=0;i<holdings.length;i++){
     if(holdings[i].symbol===symbol){
+        console.log(holdings[i].quantity, amt)
         if(holdings[i].quantity===amt){
             console.log("logic 1")
             holdings[i].issold=true;
@@ -111,6 +112,7 @@ for(let i=0;i<holdings.length;i++){
                 historyobj.issold=true;
                 historyobj.currvalue=amt*parseInt(historyobj.lastprice);
                 historyobj.type="sell"
+                historyobj.soldfor=historyobj.currvalue;
                 buysellhistory.push(historyobj);
                 localStorage.setItem("buysellhistory",JSON.stringify(buysellhistory))
                 holdings[i].quantity=parseInt(holdings[i].quantity)-amt;

@@ -108,14 +108,14 @@ function quickFix() {
                 return true;
             }
         }
-        alert('You are not in our database hehe')
+        $("#error-message-login").text("Invalid username or password, please verify your credentials!");
         return false;
 
     }
 
     function submitButtonHandler() {
         submitbutton.on('click',function(){
-            event.preventDefault();
+            e.preventDefault();
         
         console.log(terms[0].checked)
             if(checkRepeat(username.val()))
@@ -149,7 +149,7 @@ function quickFix() {
                 signupbutton.hide();
             }
             else{
-                alert("login failed")
+                $("#error-message-login").text("Invalid username or password, please verify your credentials!");
             }
                 loginModal.removeClass('is-active');
         
