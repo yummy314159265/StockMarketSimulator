@@ -17,7 +17,7 @@
   </header>
 
   <section class="section">      
-    <div class="container">          
+    <div class="container" id="main">          
 
     <h1 class="title">My Portfolios</h1>   
     <button id="btn-create-protfolio" class="js-modal-trigger button is-primary" data-target="modal-create-portfolio">
@@ -28,7 +28,8 @@
     </button>
     <!-- Show list of portfolio from localStorage -->
     <div id="show-portfolio-list" class="mt-3"></div>
-
+    
+    </div>
   </section>
   
   <!-- footer do not delete -->
@@ -61,7 +62,7 @@
             </div>
             </div>
             <button class="button" type="submit">Submit</button>
-            <div id="error-message"> </div>
+            <div class="error-message" id="create-portfolio-error-message"> </div>
           </form>
 
       </section>       
@@ -104,8 +105,8 @@
               placeholder="Quantity">
             </div>
             </div>
-            <button class="button" type="submit">Submit Order</button>
-            Note for team: form not working as price and calculation should come from API
+            <button class="button" type="submit" id="trade-submit">Submit Order</button>
+            <div class="error-message" id="trade-error-message"> </div>
           </form>
       </section>       
  
@@ -118,10 +119,11 @@
   <div id="modal-container"></div>
   <!-- login modal do not delete -->
   
-  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="module" src="./assets/js/potato_module.js"></script>
+  <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
   <script src="./assets/js/portfolio.js"></script>
+  <script type="module" src="./assets/js/potato_module.js"></script>
   <script src="./assets/js/test.js"></script>
+
 </body>
 </html>
