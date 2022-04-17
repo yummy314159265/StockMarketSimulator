@@ -34,17 +34,13 @@ function quickFix() {
 
     var loginModal = $('#login-container')
 
-    const defaultlogin= {
-        status: false,
-        user: ''
-    }
+    const defaultlogin=false;
 
     var users = JSON.parse(localStorage.getItem("users") || "[]");
-    var loggedin = JSON.parse(sessionStorage.getItem("loggedin")) || defaultlogin
+    var loggedin = JSON.parse(sessionStorage.getItem("loggedin")) || defaultlogin;
 
-    if(loggedin.status===false){
+    if(loggedin===false){
         logoutbutton.hide();
-        sessionStorage.setItem('loggedin', JSON.stringify(loggedin));
     } else {
         loginbutton.hide();
         signupbutton.hide();
@@ -149,16 +145,14 @@ function quickFix() {
     function loginButtonHandler() {
         login.on('click',function(){
             event.preventDefault();
-            console.log(loggedin)
-            if(loggedin.status===false){
+            if(loggedin===false){
             if(verifyUser(loginuser.val(),loginpass.val())){
-                loggedin = {
-                    status: true,
-                    user: loginuser.val()
-                }
-                sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
+
+                loggedin=true;
+                sessionStorage.setItem("loggedin",JSON.stringify(loggedin));
                // location.reload();
                location.href = 'portfolio.html';
+
             }
             else{                
                 $("#error-message-login").text("Invalid username or password, please verify your credentials!");
@@ -177,9 +171,8 @@ function quickFix() {
             console.log(loginbutton)
             console.log(logoutbutton)
             console.log(signupbutton)
-            loggedin.status=false;
-            loggedin.user='';
-            sessionStorage.setItem("loggedin",JSON.stringify(loggedin))
+            loggedin=false;
+            sessionStorage.setItem("loggedin",JSON.stringify(loggedin));
             console.log("logout")
             location.reload();
         })

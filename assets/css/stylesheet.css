@@ -102,7 +102,7 @@ img.rounded-corners {
     justify-content:space-around;
 }
 
-#error-message {
+.error-message {
     color: red;
     font-size:large;
     white-space: pre;

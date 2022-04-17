@@ -2,15 +2,22 @@
 var formCreatePortfolio = $('#form-create-portfolio');
 var namePortfolioEl = $('#portfolio-name');
 var investmentAmountEl = $('#investment-amount');
-var errorMessageEl = $('#error-message');
+var errorMessageEl = $('#create-portfolio-error-message');
+var tradeErrorMessageEl = $('#trade-error-message')
 var showPortFolioListEl = $('#show-portfolio-list');
 var modelCreatePortfolioEl = $('#modal-create-portfolio');
+let dollarUSLocale = Intl.NumberFormat('en-US');
+
 
 // Selectors to use for My Porfolios - Individual Portfolio Page
 var buttonCreatePortfolioEl = $('#btn-create-protfolio');
 var buttonAddSymbolEl = $('#btn-add-symbol');
 var h1El = $('h1');
-const userId = JSON.parse(sessionStorage.getItem('loggedin')).user || '';
+
+var tradeSubmitButton = $('#form-create-symbol');
+
+const userId = JSON.parse(sessionStorage.getItem('userid'));
+const loggedin = JSON.parse(sessionStorage.getItem('loggedin'));
 // LocalStorage dbuserportfolio will hold userid, portfolioname, and investmentamount
 
 // Following are functions/calls for My Portfolios - List Page
@@ -60,13 +67,13 @@ function displayPortfolio() {
   var tableBodyEl = $('<tbody>');
 
   // to format number to amount    
-  let dollarUSLocale = Intl.NumberFormat('en-US');
 
-  if(!userId){
+  if(!loggedin){
     $('#modal-please-log-in').addClass('is-active');
     $('html').addClass('is-clipped');
+    buttonCreatePortfolioEl.attr('data-target', 'modal-please-log-in');
     return;
-  }
+  } 
 
   for(var i=0; i<dbuserportfolio.length; i++) {      
     if(dbuserportfolio[i].userid === userId) {
@@ -81,6 +88,8 @@ function displayPortfolio() {
       tableColumnEl.css('cursor', 'pointer');
       tableColumnEl.css('color', 'blue');
       tableColumnEl.attr('class', 'portfoliolink');
+      tableColumnEl.attr('data-id', dbuserportfolio[i].portfolioid)
+      tableColumnEl.attr('data-amt', dbuserportfolio[i].liquid)
       tableBodyEl.append(tableColumnEl);   
       
       // 2nd column showing total symbols portfolio have
@@ -95,12 +104,13 @@ function displayPortfolio() {
 
       // 4th column calculate current market value for total investment
       var tableColumnEl = $('<td>');
-      tableColumnEl.text();
+      tableColumnEl.text('$' + dollarUSLocale.format(dbuserportfolio[i].currentvalue));
       tableBodyEl.append(tableColumnEl);   
       
       // 5th column calculate profit/loss from diffrence between current market value and total investment
+      var totalgainloss = dbuserportfolio[i].investmentamount-dbuserportfolio[i].currentvalue
       var tableColumnEl = $('<td>');
-      tableColumnEl.text('');
+      tableColumnEl.text('$' + dollarUSLocale.format(totalgainloss));
       tableBodyEl.append(tableColumnEl);        
 
         // 6th column Delete icon
@@ -134,8 +144,11 @@ var savePortfolio = function (event) {
 
   var portfolioObject = {
       userid: userId,
+      portfolioid: dbuserportfolio.length,
       portfolioname: namePortfolio,
-      investmentamount: investmentAmount
+      investmentamount: investmentAmount,
+      currentvalue: investmentAmount,
+      liquid: investmentAmount
   };
 
   dbuserportfolio.push(portfolioObject);
@@ -176,26 +189,11 @@ function displaySinglePortfolio(portfolioName) {
   showPortFolioListEl.html('');
 }
 
-
-// Event listener to add new portfolio
-formCreatePortfolio.on('submit', savePortfolio); 
-
-buttonCreatePortfolioEl.on('click', () => {
-  errorMessageEl.text(' ');
-})
-
-//event delegation use to remove portfolio
-showPortFolioListEl.on('click', '.fa-remove', function (event) {
-  var ans = confirm("Are you sure want to delete selected portfolio?")
-  if(ans == true)
-  {
-      deletePortfolio($(this).attr('id'));
-  }    
-});
-
-//event delegation user click portfolio
-showPortFolioListEl.on('click', '.portfoliolink', function (event) {
+function createPortfolioTable(event) {
+  event.preventDefault();
   displaySinglePortfolio($(this).text());      
+  const thisPortfolio = JSON.parse(localStorage.getItem("dbuserportfolio"))[$(this).attr('data-id')] || [];
+
       // Create Table
     var tableEl = $('<table id=holdings-table>');
     tableEl.attr('class', 'table table is-fullwidth');
@@ -282,108 +280,47 @@ showPortFolioListEl.on('click', '.portfoliolink', function (event) {
       // Append complte table to Show
       showPortFolioListEl.append(tableEl);
 
-// start of Rodin's code -------------------------------------------->
+      sessionStorage.setItem('portfolio', JSON.stringify({
+        id: parseInt($(this).attr('data-id')),
+        amount: parseInt($(this).attr('data-amt')),
+        originalinvestment: parseInt(thisPortfolio.investmentamount)
+      }));
 
-      createHoldingsTableEl(tableEl, userId, $(this).text());
+
+// start of Rodin's code -------------------------------------------->
+      console.log(thisPortfolio)
+      createHoldingsTableEl(tableEl, userId, thisPortfolio.portfolioid);
+};
+
+
+// Event listener to add new portfolio
+formCreatePortfolio.on('submit', savePortfolio); 
+
+buttonCreatePortfolioEl.on('click', () => {
+  console.log(buttonCreatePortfolioEl.attr('data-target'))
+  errorMessageEl.text(' ');
+})
+
+//event delegation use to remove portfolio
+showPortFolioListEl.on('click', '.fa-remove', function (event) {
+  var ans = confirm("Are you sure want to delete selected portfolio?")
+  if(ans == true)
+  {
+      deletePortfolio($(this).attr('id'));
+  }    
 });
 
-const getHoldings = (myId, myPortfolio) => {
-  let allHoldings = JSON.parse(localStorage.getItem('holdings')) || [ //this array is for testing
-    {
-      userID: 'rodin',
-      portfolioID: 'stuff',
-      holdingID: 'GME-1',
-      symbol: 'GME',
-      purchasePrice: 200,
-      QTY: 200,
-      purchaseDate: '04/13/2022',
-      isSold: true,
-      salePrice: 4000,
-      soldDate: '04/14/2022',
-      close: 300 ,
-      open: 200
-    },
+//event delegation user click portfolio
+showPortFolioListEl.on('click', '.portfoliolink', createPortfolioTable)
 
-    {
-      userID: 'bitboy',
-      portfolioID: 'lol',
-      holdingID: '0',
-      symbol: 'STD',
-      purchasePrice: 100,
-      QTY: 600,
-      purchaseDate: '03/13/2022',
-      isSold: true,
-      salePrice: .50,
-      soldDate: '03/20/2022',
-      close: 1000,
-      open: 900
-    },
+const getMyHoldings = (myId, myPortfolio) => {
+  let allHoldings = JSON.parse(localStorage.getItem('holdings') || '[]');
+  let myHoldings = [];
 
-    {
-      userID: 'rodin',
-      portfolioID: 'stuff',
-      holdingID: 'GME-2',
-      symbol: 'GME',
-      purchasePrice: 300,
-      QTY: 400,
-      purchaseDate: '04/14/2022',
-      isSold: false,
-      salePrice: 0,
-      soldDate: '',
-      close: 300,
-      open: 200
-    },
-
-    {
-      userID: 'rodin',
-      portfolioID: 'stuff',
-      holdingID: 'APPL-1',
-      symbol: 'APPL',
-      purchasePrice: 1,
-      QTY: 1000,
-      purchaseDate: '10/13/1990',
-      isSold: true,
-      salePrice: 500,
-      soldDate: '04/14/2022',
-      close: 400,
-      open: 100
-    },
-
-    {
-      userID: 'rodin',
-      portfolioID: 'stuff',
-      holdingID: 'GME-3',
-      symbol: 'GME',
-      purchasePrice: 900,
-      QTY: 100,
-      purchaseDate: '04/14/2022',
-      isSold: false,
-      salePrice: 0,
-      soldDate: '',
-      close: 300,
-      open: 200
-    },
-
-    {
-      userID: 'rodin',
-      portfolioID: 'stuff',
-      holdingID: 'APPL-1',
-      symbol: 'APPL',
-      purchasePrice: 700,
-      QTY: 400,
-      purchaseDate: '04/14/2022',
-      isSold: false,
-      salePrice: 0,
-      soldDate: '',
-      close: 300,
-      open: 200
-    }
-  ];
-
-  let myHoldings = []
+  console.log(allHoldings)
 
   for (let i = 0; i < allHoldings.length; i++) {
-    if (allHoldings[i].userID === myId && allHoldings[i].portfolioId === myPortfolio) {
+    if (allHoldings[i].portfolioid === myPortfolio) {
       myHoldings.push(allHoldings[i]);
     }
   }
@@ -394,16 +331,15 @@ const getHoldings = (myId, myPortfolio) => {
 const numToTwoDec = (num) => Math.round(num * 100)/100
 
 const formatNumbers = (numArr) => {
-  const num = numToTwoDec(numArr[0]);
-  const percentage = numToTwoDec(numArr[1]);
+  const percentage = numToTwoDec(numArr[1]) || 0;
   let formattedNum = '';
   let formattedPercentage = percentage.toLocaleString() + '%';
 
   if (numArr[0] >= 0) {
-    formattedNum = '+$' + num.toLocaleString();
+    formattedNum = '+$' + dollarUSLocale.format(numArr[0]);
     formattedPercentage = '+' + formattedPercentage;
   } else {
-    formattedNum = '-$' + (Math.abs(num)).toLocaleString();
+    formattedNum = '-$' + dollarUSLocale.format(Math.abs(numArr[0]));
   }
 
   return [formattedNum, formattedPercentage];
@@ -477,15 +413,15 @@ const createTotalGainLossEl = (holding, totalGainsArray) => $(`<td id=total-gain
 
 const createCurrentValueEl = (holding, currentValue) => $(`<td id=current-value-${holding.symbol}>${currentValue}</td>`);
 
-const createQuantityEl = (holding) => $(`<td id=qty-${holding.symbol}>${holding.quantityTotal} share(s)</td>`)
+const createQuantityEl = (holding) => $(`<td id=qty-${holding.symbol}>${holding.quantity} share(s)</td>`)
 
 const createCostBasisEl = (holding, cb) => (`<td id=cost-basis-${holding.symbol}>${cb}</td>`);
 
-const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr id=tr-${holding.symbol}><tr>`);
+const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr class="symbols" id=tr-${holding.symbol}><tr>`);
 
-const createHoldingsTableEl = (table, userId, portfolioId) => {
-  const holdings = getHoldings(userId, portfolioId);
-  const averagedHoldings = getAverageValues(holdings);
+const createHoldingsTableEl = (table, thisUser, thisPortfolio) => {
+  const holdings = getMyHoldings(thisUser, thisPortfolio);
+  // const averagedHoldings = getAverageValues(holdings);
 
   let accountTotals = {
     dailyGainLoss: 0,
@@ -495,42 +431,67 @@ const createHoldingsTableEl = (table, userId, portfolioId) => {
     currentValue: 0
   }
 
-  for (let i=0; i < averagedHoldings.length; i++) {
-    createNewTableRow(averagedHoldings[i], table);
-    const dailyGainLoss = averagedHoldings[i].dailyGL;
-    const totalGainLoss = averagedHoldings[i].totalGL;
-    const currentValue = averagedHoldings[i].currentValueTotal;
-    const costBasis = averagedHoldings[i].costBasisAvg;
+  for (let i=0; i < holdings.length; i++) {
+    createNewTableRow(holdings[i], table);
+    const symbol = holdings[i].symbol
+    const closePrice = holdings[i].lastprice
+    const openPrice = holdings[i].lastopen
+    const quantity = holdings[i].quantity
 
-    const fDailyGainLoss = formatNumbers(dailyGainLoss);
-    const fTotalGainLoss = formatNumbers(totalGainLoss);
-    const fCurrentValue = '$' + (numToTwoDec(currentValue)).toLocaleString();
-    const fCostBasis = '$' + (numToTwoDec(costBasis)).toLocaleString();
+    const costBasis = holdings[i].costbasis/quantity
+    const dailyGainLoss = calculateGainsLosses(openPrice, closePrice, quantity);
+    const totalGainLoss = calculateGainsLosses(costBasis, closePrice, quantity);
+    const currentValue = holdings[i].currvalue
+  
+    // const dailyGainLoss = averagedHoldings[i].dailyGL;
+    // const totalGainLoss = averagedHoldings[i].totalGL;
+    // const currentValue = averagedHoldings[i].currentValueTotal;
+    // const costBasis = averagedHoldings[i].costBasisAvg;
+
+    let fDailyGainLoss;
+    let fTotalGainLoss;
+    let fCurrentValue;
+    let fCostBasis;
+
+    if (moment().format('MM/DD/YYYY') === holdings[i].purchasedate) {
+      fDailyGainLoss = formatNumbers([0,0]);
+      fTotalGainLoss = formatNumbers([0,0]);
+      fCurrentValue = '$' + dollarUSLocale.format(currentValue);
+      fCostBasis = '$' + dollarUSLocale.format(costBasis*quantity);
+      accountTotals.dailyGainLoss = 0;
+      accountTotals.totalGainLoss = 0;
+    } else {
+      fDailyGainLoss = formatNumbers(dailyGainLoss);
+      fTotalGainLoss = formatNumbers(totalGainLoss);
+      fCurrentValue = '$' + dollarUSLocale.format(currentValue);
+      fCostBasis = '$' + dollarUSLocale.format(costBasis*quantity);
+      accountTotals.dailyGainLoss += dailyGainLoss[0];
+      accountTotals.totalGainLoss += totalGainLoss[0];
+    }
     
-    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createSymbolEl(averagedHoldings[i]));
-    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createLastPriceEl(averagedHoldings[i], averagedHoldings[i].close));
-    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createDailyGainLossEl(averagedHoldings[i], fDailyGainLoss));
-    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createTotalGainLossEl(averagedHoldings[i], fTotalGainLoss));
-    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createCurrentValueEl(averagedHoldings[i], fCurrentValue));
-    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createQuantityEl(averagedHoldings[i]));
-    $(table).children(`#tr-${averagedHoldings[i].symbol}`).append(createCostBasisEl(averagedHoldings[i], fCostBasis));
-    
-    console.log(`Holding: ${averagedHoldings[i].symbol} Current Price: $${averagedHoldings[i].close} Previous Price: $${averagedHoldings[i].open} QTY: ${averagedHoldings[i].quantityTotal} Cost Basis Avg: $${averagedHoldings[i].costBasisAvg}`);
-    
-    accountTotals.dailyGainLoss += dailyGainLoss[0];
-    accountTotals.dailyGainLossP += dailyGainLoss[1];
-    accountTotals.totalGainLoss += totalGainLoss[0];
-    accountTotals.totalGainLossP += totalGainLoss[1];
+    $(table).children(`#tr-${symbol}`).append(createSymbolEl(holdings[i]));
+    $(table).children(`#tr-${symbol}`).append(createLastPriceEl(holdings[i], closePrice));
+    $(table).children(`#tr-${symbol}`).append(createDailyGainLossEl(holdings[i], fDailyGainLoss));
+    $(table).children(`#tr-${symbol}`).append(createTotalGainLossEl(holdings[i], fTotalGainLoss));
+    $(table).children(`#tr-${symbol}`).append(createCurrentValueEl(holdings[i], fCurrentValue));
+    $(table).children(`#tr-${symbol}`).append(createQuantityEl(holdings[i]));
+    $(table).children(`#tr-${symbol}`).append(createCostBasisEl(holdings[i], fCostBasis));
+
     accountTotals.currentValue += currentValue;
+
+
   }
+
+  accountTotals.dailyGainLossP += accountTotals.dailyGainLoss/accountTotals.currentValue*100;
+  accountTotals.totalGainLossP += accountTotals.totalGainLoss/accountTotals.currentValue*100;
 
   const fAccTotalsDGL = formatNumbers([accountTotals.dailyGainLoss, accountTotals.dailyGainLossP]); 
   const fAccTotalsTGL = formatNumbers([accountTotals.totalGainLoss, accountTotals.totalGainLossP]);
-  accountTotals.currentValue = numToTwoDec(accountTotals.currentValue);
+  const fAccTotalsCV = `$${dollarUSLocale.format(accountTotals.currentValue)}`;
 
   $(`#daily-gain-loss-total`).text(`${fAccTotalsDGL[0]} (${fAccTotalsDGL[1]})`);
   $(`#total-gain-loss-total`).text(`${fAccTotalsTGL[0]} (${fAccTotalsTGL[1]})`);
-  $(`#current-value-total`).text(`$${accountTotals.currentValue.toLocaleString()}`);
+  $(`#current-value-total`).text(fAccTotalsCV);
 }
 
 

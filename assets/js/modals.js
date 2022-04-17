@@ -26,13 +26,6 @@ const modalHandler = () => {
 
         let target = $(`#${modal}`);      
         $(modalTriggers[i]).on('click', () => {
-
-            if (target.is($('#modal-create-portfolio'))) {
-                if (!JSON.parse(sessionStorage.getItem('loggedin')).user) {
-                    target = $('#modal-please-log-in');
-                }
-            }
-
             openModal(target);
         })
     });
@@ -40,7 +33,7 @@ const modalHandler = () => {
 
 const closeModalHandler = () => {
 
-    const closeTriggers = $('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button');
+    const closeTriggers = $('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button, #trade-submit');
 
     (closeTriggers || []).each((i) => {
         const target = closeTriggers[i].closest('.modal');
