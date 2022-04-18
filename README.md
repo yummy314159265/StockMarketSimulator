@@ -16,6 +16,10 @@ Distributed under the MIT License. See LICENSE.txt for more information.
 ## Project Links
 Code Repo: https://github.com/yummy314159265/StockMarketSimulator<br>
 Live Site: https://yummy314159265.github.io/StockMarketSimulator/
+## Screenshots
+![Alt text](https://user-images.githubusercontent.com/101486770/163739148-09f228ab-0d51-4c18-af82-cd74aaf269f5.png?raw=true "My Portfolio")
+![Alt text](https://user-images.githubusercontent.com/101486770/163739255-fb903667-1e2e-408d-b370-0dc05bef836a.png?raw=true "My Holdings")
+![Alt text](https://user-images.githubusercontent.com/101486770/163739305-7370ef69-b3ef-4426-84a9-5ddb811c516e.png?raw=true "My Watchlist")
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 

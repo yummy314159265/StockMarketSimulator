@@ -174,7 +174,8 @@ function quickFix() {
             loggedin=false;
             sessionStorage.setItem("loggedin",JSON.stringify(loggedin));
             console.log("logout")
-            location.reload();
+            location.href = "index.html";
+            //location.reload();
         })
     }
 
