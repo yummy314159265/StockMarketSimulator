@@ -4,12 +4,15 @@ var errorMessageEl = $('#error-message');
 var errorMessageFormEl = $('#error-message-form');
 var modelCreateWatchlistEl = $('#modal-watchlist');
 var showWatchlistEl = $('#show-watchlist');
+const addSymbolButtonEl = $('#btn-add-symbol');
 
 // API endpoint URL to fetch price of all (1100+) stocks in one call
 const endpointURL= "https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2022-04-14?adjusted=true&apiKey=GC9ROGPfIcOolOpnKpoEyjmILLnT5xPv";
 
 // fetch loggedin userid from sesssion = must change
-var userId = 1;
+const userId = JSON.parse(sessionStorage.getItem('userid'));
+const loggedin = JSON.parse(sessionStorage.getItem('loggedin'));
+const pleaseLogInModalEl = $('#modal-please-log-in');
 
 var listOfAllStocks; // will hold API Data - global access to all stock price
 
@@ -68,6 +71,7 @@ function displayWatchList()
 {           
    // on page load main or on save new data fetchStocksFromAPI will be called
 
+ 
    showWatchlistEl.text(''); // clear list holder   
    listOfAllStocks = JSON.parse(localStorage.getItem("listOfAllStocks"));
 
@@ -114,7 +118,7 @@ function displayWatchList()
     // Create Table Body
     var tableBodyEl = $('<tbody>');   
     
-    var watchlistLocalStorage = JSON.parse(localStorage.getItem(watchlistLocalStorageId));         
+    var watchlistLocalStorage = JSON.parse(localStorage.getItem(watchlistLocalStorageId)) || [];         
     for(var i = 0; i < watchlistLocalStorage.length; i++)
     {        
         // Get price from API Data if available
@@ -170,6 +174,8 @@ function displayWatchList()
     // Append tbody to table
     tableEl.append(tableBodyEl); 
     showWatchlistEl.append(tableEl); 
+
+
 }
 
 function fetchStocksFromAPI()
@@ -207,7 +213,9 @@ function init()
     fetchStocksFromAPI();
     // to retrieve anywhere in script use following 
     // listOfAllStocks = JSON.parse(localStorage.getItem("listOfAllStocks"));
-    
+    if (!loggedin) {
+        addSymbolButtonEl.attr('data-target', 'modal-please-log-in')
+    }
     // Display List from LocalStorage      
     displayWatchList();    
 }
