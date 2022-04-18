@@ -164,7 +164,7 @@ var savePortfolio = function (event) {
   namePortfolioEl.val('');
   investmentAmountEl.val('');
   modelCreatePortfolioEl.removeClass('is-active');
-  displayPortfolio();
+  location.reload();
 };
 
   
