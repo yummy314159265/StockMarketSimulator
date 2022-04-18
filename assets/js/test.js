@@ -9,13 +9,13 @@ const api ="6SvIn0fus9qTZENF39DKiWYPpDbxbFy5";
 var searchterm="GOOGL"
 var symbol = $('#symbol-name')
 var select = $('#trade-action');
- var option = select[0].options[select[0].selectedIndex].value
+//  var option = select[0].options[select[0].selectedIndex].value
 var quant = $('#stock-qty')
 var submit = $('#form-create-symbol')
 var costbasis;
 var lastprice;
 var lastopen;
-var quantity=quant[0].value;
+// var quantity=quant[0].value;
 var today;
 var total;
 var currvalue;
