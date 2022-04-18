@@ -364,11 +364,8 @@ const createHistoryTableEl = (currentPortfolio) => {
     const symbol = transactionHistory[i].symbol;
     const price = transactionHistory[i].lastprice;
     const quantity = transactionHistory[i].quantity;
-    const totalGainLoss = calculateGainsLosses(price, transactionHistory[i].lastprice, quantity);
     const currentValue = dollarUSLocale.format(transactionHistory[i].currvalue);
     const costBasis = dollarUSLocale.format(transactionHistory[i].costbasis);
-    const fTotalGainLoss = formatNumbers(totalGainLoss);
-
     
     //type
     historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${type}</td>`);
@@ -376,8 +373,6 @@ const createHistoryTableEl = (currentPortfolio) => {
     historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${symbol}</td>`);
     //price
     historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${price}</td>`);
-    //total gain/loss
-    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td><div>${fTotalGainLoss[0]}</div><div>${fTotalGainLoss[1]}</div></td>`);
     //currentvalue
     historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>$${currentValue}</td>`);
     //quantity
@@ -399,7 +394,6 @@ mainEl.on('click', '.transaction-link', function (event) {
     <th>Type</th>
     <th>Symbol</th>
     <th>Price Bought/Sold</th>
-    <th>Total Gain/Loss</th>
     <th>Current Value</th>
     <th>Quantity</th>
     <th>Cost Basis</th>
