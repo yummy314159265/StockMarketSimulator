@@ -18,6 +18,7 @@
 
   <section class="section">      
     <div class="container" id="main">          
+
      <div class="has-text-right">
        <a href="portfolio.html">My Portfolio</a> | 
        <a href="watchlist.html">My watchlist</a>
@@ -114,6 +115,23 @@
       </section>       
  
     </div>
+  </div>
+
+  <div id="modal-delete" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+      <div class="box level">
+        <p class="level-left">Are you sure you want to delete this portfolio?</p>
+        <div class="level-right">
+          <button class="button mr-1" id="delete-confirm">OK</button> 
+          <button class="button" id="delete-cancel">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
   <!-- End Model with form to add new stock/symbol -->

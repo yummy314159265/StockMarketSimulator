@@ -6,6 +6,7 @@ var errorMessageEl = $('#create-portfolio-error-message');
 var tradeErrorMessageEl = $('#trade-error-message')
 var showPortFolioListEl = $('#show-portfolio-list');
 var modelCreatePortfolioEl = $('#modal-create-portfolio');
+const mainEl = $('#main')
 let dollarUSLocale = Intl.NumberFormat('en-US');
 
 
@@ -13,11 +14,16 @@ let dollarUSLocale = Intl.NumberFormat('en-US');
 var buttonCreatePortfolioEl = $('#btn-create-protfolio');
 var buttonAddSymbolEl = $('#btn-add-symbol');
 var h1El = $('h1');
+const modalDeleteEl = $('#modal-delete');
+const deleteConfirmEl = $('#delete-confirm');
+const deleteCancelEl = $('#delete-cancel');
 
 var tradeSubmitButton = $('#form-create-symbol');
 
 const userId = JSON.parse(sessionStorage.getItem('userid'));
 const loggedin = JSON.parse(sessionStorage.getItem('loggedin'));
+const getDBUserPortfolio = () => JSON.parse(localStorage.getItem('dbuserportfolio')) || [];
+const setDBUserPortfolio = (portfolio) => localStorage.setItem('dbuserportfolio', JSON.stringify(portfolio));
 // LocalStorage dbuserportfolio will hold userid, portfolioname, and investmentamount
 
 // Following are functions/calls for My Portfolios - List Page
@@ -108,14 +114,14 @@ function displayPortfolio() {
       tableBodyEl.append(tableColumnEl);   
       
       // 5th column calculate profit/loss from diffrence between current market value and total investment
-      var totalgainloss = dbuserportfolio[i].investmentamount-dbuserportfolio[i].currentvalue
+      var totalgainloss = dbuserportfolio[i].currentvalue-dbuserportfolio[i].investmentamount
       var tableColumnEl = $('<td>');
       tableColumnEl.text('$' + dollarUSLocale.format(totalgainloss));
       tableBodyEl.append(tableColumnEl);        
 
         // 6th column Delete icon
         var tableColumnEl = $('<td>');
-        var faIconEl = "<i id=" + i +" class='fa fa-remove fa-hand-pointer fa-2xl'></i>";      
+        var faIconEl = "<i data-id=" + dbuserportfolio[i].portfolioid +" class='js-modal-trigger fa fa-remove fa-hand-pointer fa-2xl' data-target=modal-delete></i>";      
         tableColumnEl.html(faIconEl);
         //tableColumnEl.append(faIconEl);  
         
@@ -164,17 +170,26 @@ var savePortfolio = function (event) {
   
 // remove portfolio if user request  
 function deletePortfolio(id) {
-  var dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio"));         
-  var newLocalStorage = [];
-  for(var i=0; i<dbuserportfolio.length; i++)
-  {
-      if(id != i)  
-      {
-          newLocalStorage.push(dbuserportfolio[i]);
-      }        
-  }
-  localStorage.setItem("dbuserportfolio", JSON.stringify(newLocalStorage));
-  displayPortfolio();
+ 
+  // for(var i=0; i<dbuserportfolio.length; i++)
+  // {
+  //     if(id != i)  
+  //     {
+  //         newLocalStorage.push(dbuserportfolio[i]);
+  //     }        
+  // }
+  const dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio")) || [];    
+  const holdings = JSON.parse(localStorage.getItem("holdings")) || [];   
+  const history = JSON.parse(localStorage.getItem("buysellhistory")) || [];
+
+  const newDbUserPortfolio = dbuserportfolio.filter(portfolio => portfolio.portfolioid != id)
+  const newHoldings = holdings.filter(holding => holding.portfolioid != id)
+  const newHistory = history.filter(hist => hist.portfolioid != id)
+  
+  localStorage.setItem('dbuserportfolio', JSON.stringify(newDbUserPortfolio));
+  localStorage.setItem('holdings',JSON.stringify(newHoldings));
+  localStorage.setItem('buysellhistory',JSON.stringify(newHistory));
+  location.reload();
 }
    
 // Following are functions/calls for My Portfolios - Individual Page
@@ -191,6 +206,7 @@ function displaySinglePortfolio(portfolioName) {
 
 function createPortfolioTable(event) {
   event.preventDefault();
+  $('#history-table').remove();
   displaySinglePortfolio($(this).text());      
   const thisPortfolio = JSON.parse(localStorage.getItem("dbuserportfolio"))[$(this).attr('data-id')] || [];
 
@@ -286,10 +302,13 @@ function createPortfolioTable(event) {
         originalinvestment: parseInt(thisPortfolio.investmentamount)
       }));
 
+      const showHistoryLinkEl = $(`<div class=transaction-history-div><a class=transaction-link id=show-history-link-${$(this).attr('data-id')} data-id=${$(this).attr('data-id')} data-amt=${$(this).attr('data-amt')} data-name=${$(this).text()}>Transaction History</a></div>`)
+
+      mainEl.append(showHistoryLinkEl)
 
 // start of Rodin's code -------------------------------------------->
-      console.log(thisPortfolio)
-      createHoldingsTableEl(tableEl, userId, thisPortfolio.portfolioid);
+
+      createHoldingsTableEl(tableEl, thisPortfolio.portfolioid);
 };
 
 
@@ -297,27 +316,111 @@ function createPortfolioTable(event) {
 formCreatePortfolio.on('submit', savePortfolio); 
 
 buttonCreatePortfolioEl.on('click', () => {
-  console.log(buttonCreatePortfolioEl.attr('data-target'))
   errorMessageEl.text(' ');
 })
 
-//event delegation use to remove portfolio
+// event delegation use to remove portfolio
 showPortFolioListEl.on('click', '.fa-remove', function (event) {
-  var ans = confirm("Are you sure want to delete selected portfolio?")
-  if(ans == true)
-  {
-      deletePortfolio($(this).attr('id'));
-  }    
+  event.preventDefault();
+  deleteConfirmEl.attr('data-id', $(this).attr('data-id'));
 });
 
-//event delegation user click portfolio
-showPortFolioListEl.on('click', '.portfoliolink', createPortfolioTable)
+deleteConfirmEl.on('click', function (event) {
+  event.preventDefault();
+  modalDeleteEl.removeClass('is-active');
+  $('html').removeClass('is-clipped');
+  deletePortfolio($(this).attr('data-id'))
+})
 
-const getMyHoldings = (myId, myPortfolio) => {
+deleteCancelEl.on('click', (event) => {
+  event.preventDefault();
+  modalDeleteEl.removeClass('is-active');
+  $('html').removeClass('is-clipped');
+})
+
+const getHistory = () => {
+  const allHistory = JSON.parse(localStorage.getItem('buysellhistory'));
+  const portfolio = JSON.parse(sessionStorage.getItem('portfolio'))
+  const myHistory = [];
+
+  for (let i = 0; i < allHistory.length; i++) {
+    if (allHistory[i].portfolioid === portfolio.id) {
+      myHistory.push(allHistory[i]);
+    }
+  }
+
+  return myHistory;
+}
+const createNewHistoryTableRow = (history, table) => $(table).append(`<tr class=history id=tr-${history.historyid}></tr>`)
+
+const createHistoryTableEl = (currentPortfolio) => {
+  let historyTableEl = $('#history-table');
+  let transactionHistory = getHistory(currentPortfolio);
+
+
+  for (let i = 0; i < transactionHistory.length; i++) {
+    createNewHistoryTableRow(transactionHistory[i], historyTableEl);
+    const type = transactionHistory[i].type;
+    const symbol = transactionHistory[i].symbol;
+    const price = transactionHistory[i].lastprice;
+    const quantity = transactionHistory[i].quantity;
+    const totalGainLoss = calculateGainsLosses(price, transactionHistory[i].lastprice, quantity);
+    const currentValue = dollarUSLocale.format(transactionHistory[i].currvalue);
+    const costBasis = dollarUSLocale.format(transactionHistory[i].costbasis);
+    const fTotalGainLoss = formatNumbers(totalGainLoss);
+
+    
+    //type
+    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${type}</td>`);
+    //symbol
+    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${symbol}</td>`);
+    //price
+    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${price}</td>`);
+    //total gain/loss
+    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td><div>${fTotalGainLoss[0]}</div><div>${fTotalGainLoss[1]}</div></td>`);
+    //currentvalue
+    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>$${currentValue}</td>`);
+    //quantity
+    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${quantity} share(s)</td>`);
+    //cost basis
+    historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>$${costBasis}</td>`);
+  }
+}
+
+mainEl.on('click', '.transaction-link', function (event) {
+  event.preventDefault();
+  $(this).remove();
+  $('#holdings-table').remove();
+  buttonAddSymbolEl.hide();
+  h1El.html(`<a href='portfolio.html'>My Portfolios</a> / <a class=portfoliolink data-id=${$(this).attr('data-id')} data-amt=${$(this).attr('data-amt')}> ${$(this).attr('data-name')} </a> / transaction history`);
+  let historyTableEl = $(`<table class='table is-fullwidth' id=history-table>`);
+  let historyTableHeadEl = $(`<thead>
+  <tr>
+    <th>Type</th>
+    <th>Symbol</th>
+    <th>Price Bought/Sold</th>
+    <th>Total Gain/Loss</th>
+    <th>Current Value</th>
+    <th>Quantity</th>
+    <th>Cost Basis</th>
+  </tr>
+  </thead>
+  `);
+  historyTableEl.append(historyTableHeadEl);
+  mainEl.append(historyTableEl);
+
+  historyTableEl.append(createHistoryTableEl());
+  
+})
+
+//event delegation user click portfolio
+mainEl.on('click', '.portfoliolink', createPortfolioTable)
+
+const getMyHoldings = (myPortfolio) => {
   let allHoldings = JSON.parse(localStorage.getItem('holdings') || '[]');
   let myHoldings = [];
 
-  console.log(allHoldings)
+
 
   for (let i = 0; i < allHoldings.length; i++) {
     if (allHoldings[i].portfolioid === myPortfolio) {
@@ -417,10 +520,12 @@ const createQuantityEl = (holding) => $(`<td id=qty-${holding.symbol}>${holding.
 
 const createCostBasisEl = (holding, cb) => (`<td id=cost-basis-${holding.symbol}>${cb}</td>`);
 
-const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr class="symbols" id=tr-${holding.symbol}><tr>`);
+const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr class="symbols" id=tr-${holding.symbol}></tr>`);
 
-const createHoldingsTableEl = (table, thisUser, thisPortfolio) => {
-  const holdings = getMyHoldings(thisUser, thisPortfolio);
+const createHoldingsTableEl = (table, thisPortfolio) => {
+  const holdings = getMyHoldings(thisPortfolio);
+  const dbuserportfolio = getDBUserPortfolio();
+
   // const averagedHoldings = getAverageValues(holdings);
 
   let accountTotals = {
@@ -478,8 +583,6 @@ const createHoldingsTableEl = (table, thisUser, thisPortfolio) => {
     $(table).children(`#tr-${symbol}`).append(createCostBasisEl(holdings[i], fCostBasis));
 
     accountTotals.currentValue += currentValue;
-
-
   }
 
   accountTotals.dailyGainLossP += accountTotals.dailyGainLoss/accountTotals.currentValue*100;
@@ -492,6 +595,8 @@ const createHoldingsTableEl = (table, thisUser, thisPortfolio) => {
   $(`#daily-gain-loss-total`).text(`${fAccTotalsDGL[0]} (${fAccTotalsDGL[1]})`);
   $(`#total-gain-loss-total`).text(`${fAccTotalsTGL[0]} (${fAccTotalsTGL[1]})`);
   $(`#current-value-total`).text(fAccTotalsCV);
+  dbuserportfolio.currentvalue = accountTotals.currentValue + dbuserportfolio.liquid;
+  setDBUserPortfolio(dbuserportfolio);
 }
 
 
