@@ -95,13 +95,14 @@ function storeTrade(){
         quantity:quantity,
         currvalue:currvalue, 
         soldfor: null,
+        historyid: buysellhistory.length,
         portfolioid: currentportfolio.id,
         portfolioamt: currentportfolio.amount,
         portfoliopreviousamt: currentportfolio.previousamount,
         portfoliooriginalinvestment: currentportfolio.originalinvestment
     }
     //update buysellhistory
-    historyobj.type="buy"
+    historyobj.type="Buy"
     buysellhistory.push(historyobj);
     localStorage.setItem("buysellhistory", JSON.stringify(buysellhistory));
     
@@ -170,7 +171,7 @@ submit.on('submit',function(event){
                         }
 
                         symbolTableRowsEl.remove();
-                        createHoldingsTableEl(holdingsTableEl, currentuser, currentportfolio.id)
+                        createHoldingsTableEl(holdingsTableEl, currentportfolio.id)
                         $('#modal-trade').removeClass('is-active');
                         $('html').removeClass('is-clipped');
 
@@ -202,7 +203,8 @@ for(let i=0;i<holdings.length;i++){
                 holdings[i].issold=true;
                 console.log(holdings[i])
                 holdings[i].soldfor=holdings[i].currvalue;
-                holdings[i].type="sell"
+                holdings[i].type="Sell"
+                holdings[i].historyid=buysellhistory.length
                 buysellhistory.push(holdings[i])
                 holdings.splice(i,1)
                 localStorage.setItem("holdings",JSON.stringify(holdings))
@@ -215,7 +217,8 @@ for(let i=0;i<holdings.length;i++){
                     historyobj.quantity=amt;
                     historyobj.issold=true;
                     historyobj.currvalue=amt*parseInt(historyobj.lastprice);
-                    historyobj.type="sell"
+                    historyobj.type="Sell"
+                    historyobj.historyid=buysellhistory.length
                     buysellhistory.push(historyobj);
                     localStorage.setItem("buysellhistory",JSON.stringify(buysellhistory))
                     holdings[i].quantity=parseInt(holdings[i].quantity)-amt;

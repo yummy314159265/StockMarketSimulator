@@ -107,3 +107,12 @@ img.rounded-corners {
     font-size:large;
     white-space: pre;
 }
+
+.transaction-history-div {
+    text-align: right
+}
+
+.delete-confirm {
+    display: flex;
+    justify-content: space-between;
+}
