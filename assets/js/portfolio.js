@@ -394,7 +394,6 @@ mainEl.on('click', '.transaction-link', function (event) {
     <th>Type</th>
     <th>Symbol</th>
     <th>Price Bought/Sold</th>
-    <th>Total Gain/Loss</th>
     <th>Current Value</th>
     <th>Quantity</th>
     <th>Cost Basis</th>
