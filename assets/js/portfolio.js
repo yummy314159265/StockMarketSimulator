@@ -53,9 +53,9 @@ function displayPortfolio() {
    var tableColumnEl = $('<th>');
    tableColumnEl.text('Portfolio Name');
    tableRowEl.append(tableColumnEl);   
-   var tableColumnEl = $('<th>');
-   tableColumnEl.text('Symbols');
-   tableRowEl.append(tableColumnEl);   
+  //  var tableColumnEl = $('<th>');
+  //  tableColumnEl.text('Symbols');
+  //  tableRowEl.append(tableColumnEl);   
    var tableColumnEl = $('<th>');
    tableColumnEl.text('Investments');
    tableRowEl.append(tableColumnEl);   
@@ -99,9 +99,9 @@ function displayPortfolio() {
       tableBodyEl.append(tableColumnEl);   
       
       // 2nd column showing total symbols portfolio have
-      var tableColumnEl = $('<td>');
-      tableColumnEl.text();  //  add total symbols from other object
-      tableBodyEl.append(tableColumnEl);   
+      // var tableColumnEl = $('<td>');
+      // tableColumnEl.text();  //  add total symbols from other object
+      // tableBodyEl.append(tableColumnEl);   
 
       // 3rd column showing total investments
       var tableColumnEl = $('<td>');
