@@ -49,7 +49,6 @@ const updatePortfolio = (amt) => {
 
     for (let i = 0; i < holdings.length; i++){
         if(holdings[i].portfolioid === currentportfolio.id) {
-            console.log('hi')
             holdings[i].portfoliopreviousamt = currentportfolio.previousamount;
             holdings[i].portfolioamt = currentportfolio.amount;
         }
@@ -198,7 +197,8 @@ const holdings = getHoldings();
 for(let i=0;i<holdings.length;i++){
     if (currentportfolio.id === holdings[i].portfolioid) {
         if(holdings[i].symbol===symbol){
-            if(holdings[i].quantity===amt){
+            
+            if(parseInt(holdings[i].quantity)===parseInt(amt)){
                 console.log("logic 1")
                 holdings[i].issold=true;
                 console.log(holdings[i])
@@ -207,7 +207,8 @@ for(let i=0;i<holdings.length;i++){
                 holdings[i].historyid=buysellhistory.length
                 buysellhistory.push(holdings[i])
                 holdings.splice(i,1)
-                localStorage.setItem("holdings",JSON.stringify(holdings))
+                localStorage.setItem("holdings",JSON.stringify(holdings));
+                localStorage.setItem('buysellhistory', JSON.stringify(buysellhistory));
                 updatePortfolio(-currvalue);
                 return;
             }

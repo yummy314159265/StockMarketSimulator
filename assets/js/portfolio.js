@@ -178,9 +178,9 @@ function deletePortfolio(id) {
   //         newLocalStorage.push(dbuserportfolio[i]);
   //     }        
   // }
-  const dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio"));    
-  const holdings = JSON.parse(localStorage.getItem("holdings"));   
-  const history = JSON.parse(localStorage.getItem("buysellhistory"));
+  const dbuserportfolio = JSON.parse(localStorage.getItem("dbuserportfolio")) || [];    
+  const holdings = JSON.parse(localStorage.getItem("holdings")) || [];   
+  const history = JSON.parse(localStorage.getItem("buysellhistory")) || [];
 
   const newDbUserPortfolio = dbuserportfolio.filter(portfolio => portfolio.portfolioid != id)
   const newHoldings = holdings.filter(holding => holding.portfolioid != id)
@@ -189,7 +189,6 @@ function deletePortfolio(id) {
   localStorage.setItem('dbuserportfolio', JSON.stringify(newDbUserPortfolio));
   localStorage.setItem('holdings',JSON.stringify(newHoldings));
   localStorage.setItem('buysellhistory',JSON.stringify(newHistory));
-  console.log(newDbUserPortfolio, newHoldings, newHistory); 
   location.reload();
 }
    
@@ -308,7 +307,7 @@ function createPortfolioTable(event) {
       mainEl.append(showHistoryLinkEl)
 
 // start of Rodin's code -------------------------------------------->
-      console.log(thisPortfolio.portfolioid)
+
       createHoldingsTableEl(tableEl, thisPortfolio.portfolioid);
 };
 
@@ -317,7 +316,6 @@ function createPortfolioTable(event) {
 formCreatePortfolio.on('submit', savePortfolio); 
 
 buttonCreatePortfolioEl.on('click', () => {
-  console.log(buttonCreatePortfolioEl.attr('data-target'))
   errorMessageEl.text(' ');
 })
 
@@ -370,7 +368,7 @@ const createHistoryTableEl = (currentPortfolio) => {
     const currentValue = dollarUSLocale.format(transactionHistory[i].currvalue);
     const costBasis = dollarUSLocale.format(transactionHistory[i].costbasis);
     const fTotalGainLoss = formatNumbers(totalGainLoss);
-    console.log(transactionHistory[i])
+
     
     //type
     historyTableEl.children(`#tr-${transactionHistory[i].historyid}`).append(`<td>${type}</td>`);
@@ -422,7 +420,7 @@ const getMyHoldings = (myPortfolio) => {
   let allHoldings = JSON.parse(localStorage.getItem('holdings') || '[]');
   let myHoldings = [];
 
-  console.log(allHoldings)
+
 
   for (let i = 0; i < allHoldings.length; i++) {
     if (allHoldings[i].portfolioid === myPortfolio) {
@@ -526,7 +524,6 @@ const createNewTableRow = (holding, tblEl) => $(tblEl).append(`<tr class="symbol
 
 const createHoldingsTableEl = (table, thisPortfolio) => {
   const holdings = getMyHoldings(thisPortfolio);
-  console.log('thisPortfolio:' + thisPortfolio)
   const dbuserportfolio = getDBUserPortfolio();
 
   // const averagedHoldings = getAverageValues(holdings);
