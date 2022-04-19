@@ -132,7 +132,7 @@ function doAfterLoader(){
     html.addClass('is-clipped');
     setTimeout(() => {
       resolve();
-    }, 1);
+    }, 100);
   });
 }
 
