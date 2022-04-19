@@ -20,15 +20,29 @@
   <section class="section">      
     <div class="container">          
 
-    <h1 class="title">Realtime Stock Prices</h1>       
+    <div class="level">
+      <h1 class="title level-left">Realtime Stock Prices</h1>  
+      <a class="level-right" id="show-more-results">Show more results</a> 
+    </div>      
     <div id="error-message" class="has-text-danger"></div>
-    <div class="loader has-text-centered m-0"></div>
+    
     <div id="stockprice-list"></div>
     </div>
   </section>  
   <!-- footer do not delete -->
   <div id="footer-container"></div>
   <!-- footer do not delete -->
+
+  <div id="modal-loader" class="modal is-active">
+    <div class="modal-loader-background"></div>
+  
+    <div class="modal-content">
+      <div class="is-clipped has-text-centered">
+        <div class="loader has-text-centered m-auto"></div>
+      </div>
+    </div>
+
+  </div>
 
   <!-- login modal do not delete -->
   <div id="modal-container"></div>

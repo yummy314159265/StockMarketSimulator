@@ -20,10 +20,10 @@ h3 {
 
 /* CSS selectrs class */
 a.navbar-item {
-    font-size:20px;
+    font-size: 20px;
 }
 
-.text-center { 
+.text-center {
     text-align: center;
 }
 
@@ -35,55 +35,85 @@ a.navbar-item {
 .header-img {
     height: 300px;
 }
-   
+
 img.rounded-corners {
     object-fit: cover;
 }
 
-.navtext{
-    font-size:30px;
+.navtext {
+    font-size: 30px;
 }
 
-.Q  {
-    font-weight:bold;
-    font-size:20px;
-    list-style:none;
+.Q {
+    font-weight: bold;
+    font-size: 20px;
+    list-style: none;
 }
 
-.arrowcon{
-    transform:translate(0px,15px);
+.arrowcon {
+    transform: translate(0px, 15px);
 }
 
-.A{
-    list-style:none;
-    transform:translate(30px,0px);
+.A {
+    list-style: none;
+    transform: translate(30px, 0px);
 }
+
 .blacktheme {
     background-color: #000;
 }
 
 /* Showing loader image for loading 10,000 + stock prices on stockprices.html */
 .loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
     border-radius: 50%;
     width: 120px;
     height: 120px;
     animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-/* CSS selector Ids */
-
-#FAQlist{
-    list-style:none;
+    background-color: rgba(10, 10, 10, 0);
 }
 
-#footer-container{
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* CSS selector Ids */
+
+.modal-loader-background {
+    background-color: rgba(10, 10, 10, 0.86);
+    bottom: 0px;
+    box-sizing: border-box;
+    color: rgb(74, 74, 74);
+    display: block;
+    font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    height: 100%;
+    left: 0px;
+    line-height: 24px;
+    position: absolute;
+    right: 0px;
+    text-rendering: optimizelegibility;
+    text-size-adjust: 100%;
+    top: 0px;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+#FAQlist {
+    list-style: none;
+}
+
+#footer-container {
     margin-top: auto;
 }
 
@@ -91,20 +121,21 @@ img.rounded-corners {
     background-color: gray;
 }
 
-#FAQcard{
-    background-color:aliceblue;
+#FAQcard {
+    background-color: aliceblue;
 }
 
-#FAQtitle{
-    font-size:35px;
+#FAQtitle {
+    font-size: 35px;
 }
-#navbarBasicExample{
-    justify-content:space-around;
+
+#navbarBasicExample {
+    justify-content: space-around;
 }
 
 .error-message {
     color: red;
-    font-size:large;
+    font-size: large;
     white-space: pre;
 }
 
