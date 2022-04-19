@@ -31,6 +31,7 @@ function quickFix() {
     var signupbutton=$('#signupbutton')
     var loginbutton=$('#login-button')
     var logoutbutton=$('#logoutbutton')
+    const portfolioEl = $('#portfolio-navbar')
 
     var loginModal = $('#login-container')
 
@@ -41,9 +42,11 @@ function quickFix() {
 
     if(loggedin===false){
         logoutbutton.hide();
+        portfolioEl.hide();
     } else {
         loginbutton.hide();
         signupbutton.hide();
+        portfolioEl.show();
     }
 
     //no duplicate usernames
